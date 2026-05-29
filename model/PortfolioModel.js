@@ -13,6 +13,10 @@ export class PortfolioModel {
         this.theme = this._initializeTheme();
         this.isMobileMenuOpen = false;
         this.activeSection = '';
+        this.activeSkillsCategory = 'All';
+        this.activeCertsCategory = 'All';
+        this.sfxEnabled = localStorage.getItem('sfxEnabled') === 'enabled';
+        this.contactPreset = '';
     }
 
     /**
@@ -45,6 +49,46 @@ export class PortfolioModel {
         this.theme = this.theme === 'dark' ? 'light' : 'dark';
         localStorage.setItem('darkMode', this.theme === 'dark' ? 'enabled' : 'disabled');
         this.notify('themeChange', this.theme);
+    }
+
+    /**
+     * Toggles SFX sound effects active state.
+     */
+    toggleSfx() {
+        this.sfxEnabled = !this.sfxEnabled;
+        localStorage.setItem('sfxEnabled', this.sfxEnabled ? 'enabled' : 'disabled');
+        this.notify('sfxChange', this.sfxEnabled);
+    }
+
+    /**
+     * Sets active category filter for skills.
+     * @param {string} category 
+     */
+    setSkillsCategory(category) {
+        if (this.activeSkillsCategory !== category) {
+            this.activeSkillsCategory = category;
+            this.notify('skillsCategoryChange', this.activeSkillsCategory);
+        }
+    }
+
+    /**
+     * Sets active category filter for certifications.
+     * @param {string} category 
+     */
+    setCertsCategory(category) {
+        if (this.activeCertsCategory !== category) {
+            this.activeCertsCategory = category;
+            this.notify('certsCategoryChange', this.activeCertsCategory);
+        }
+    }
+
+    /**
+     * Sets contact form input preset selection.
+     * @param {string} presetType 
+     */
+    setContactPreset(presetType) {
+        this.contactPreset = presetType;
+        this.notify('contactPresetChange', this.contactPreset);
     }
 
     /**

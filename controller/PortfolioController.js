@@ -22,16 +22,26 @@ export class PortfolioController {
 
         // 2. Load and present initial application states
         this.view.updateTheme(this.model.theme);
+        this.view.updateSfx(this.model.sfxEnabled);
         this.view.updateActiveSection(this.model.activeSection);
+        this.view.updateSkillsFilter(this.model.activeSkillsCategory);
+        this.view.updateCertsFilter(this.model.activeCertsCategory);
 
         // 3. Register state observers on the Model
         this.model.addObserver('themeChange', (theme) => this.view.updateTheme(theme));
+        this.model.addObserver('sfxChange', (enabled) => this.view.updateSfx(enabled));
         this.model.addObserver('menuChange', (isOpen) => this.view.updateMobileMenu(isOpen));
         this.model.addObserver('sectionChange', (sectionId) => this.view.updateActiveSection(sectionId));
+        this.model.addObserver('skillsCategoryChange', (category) => this.view.updateSkillsFilter(category));
+        this.model.addObserver('certsCategoryChange', (category) => {
+            const searchVal = this.view.certsSearchInput ? this.view.certsSearchInput.value.toLowerCase().trim() : '';
+            this.view.updateCertsFilter(category, searchVal);
+        });
+        this.model.addObserver('contactPresetChange', (preset) => this.view.updateContactPreset(preset, this.model.data.profile));
 
         // 4. Bind UI interactions from the View to Model mutations
         this.view.bindThemeToggle(() => this.model.toggleTheme());
-        
+        this.view.bindSfxToggle(() => this.model.toggleSfx());
         this.view.bindMobileMenuToggle((isOpen) => this.model.setMobileMenuState(isOpen));
 
         this.view.bindDesktopNavClick((targetSection) => {
@@ -64,6 +74,19 @@ export class PortfolioController {
         this.view.bindHeroCTAContactMe((target) => {
             this.view.scrollToSection(target);
             this.model.setActiveSection(target);
+        });
+
+        this.view.bindSkillsFilter((category) => {
+            this.model.setSkillsCategory(category);
+        });
+
+        this.view.bindCertsFilter((category, searchVal) => {
+            this.model.setCertsCategory(category);
+            this.view.updateCertsFilter(category, searchVal);
+        });
+
+        this.view.bindContactPreset((preset) => {
+            this.model.setContactPreset(preset);
         });
 
         // 5. Connect View's scroll detection back into the Controller

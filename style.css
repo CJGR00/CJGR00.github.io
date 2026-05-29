@@ -1,33 +1,324 @@
 /* ==========================================================================
-   Christian Jae Galang Remulla - Custom Stylesheet overrides
+   Christian Jae Galang Remulla - Custom Stylesheet Overrides
    ========================================================================== */
 
-/* Modern scrollbar styling */
+:root {
+    --teal-glow: rgba(20, 184, 166, 0.15);
+    --blue-glow: rgba(37, 99, 235, 0.15);
+    --cyan-glow: rgba(14, 165, 233, 0.15);
+    --neon-teal: #0d9488;
+    --neon-blue: #2563eb;
+    --neon-cyan: #0ea5e9;
+}
+
+/* Base custom font styles & scrolling smooth */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+}
+
+/* Custom Scrollbar Styles */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+    background: #09090b;
 }
 
-.dark ::-webkit-scrollbar-track {
-    background: #030712;
+.light ::-webkit-scrollbar-track {
+    background: #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #27272a;
+    border: 2px solid #09090b;
     border-radius: 9999px;
 }
 
-.dark ::-webkit-scrollbar-thumb {
-    background: #1f2937;
+.light ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border: 2px solid #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb:hover {
+    background: #3f3f46;
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
 }
 
-.dark ::-webkit-scrollbar-thumb:hover {
-    background: #374151;
+/* Cyberpunk Mesh Gradients */
+.cyber-grid {
+    background-size: 50px 50px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}
+
+.light .cyber-grid {
+    background-image: 
+        linear-gradient(to right, rgba(13, 148, 136, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(13, 148, 136, 0.04) 1px, transparent 1px);
+}
+
+/* Floating Animations */
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(0.5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes float-reverse {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(8px) rotate(-0.5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+    animation: float-reverse 7s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+    animation: pulseGlow 10s ease-in-out infinite;
+}
+
+/* Glassmorphic Cards (UX Pro Max Specs) */
+.glass-panel {
+    background: rgba(10, 10, 15, 0.7);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.light .glass-panel {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border: 1px solid rgba(13, 148, 136, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(13, 148, 136, 0.04);
+}
+
+/* Glow Borders on Hover */
+.glow-card {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glow-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(to bottom right, rgba(20, 184, 166, 0.3), rgba(37, 99, 235, 0.3), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.glow-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -15px rgba(20, 184, 166, 0.2);
+    border-color: rgba(20, 184, 166, 0.25);
+}
+
+.light .glow-card:hover {
+    box-shadow: 0 20px 40px -15px rgba(20, 184, 166, 0.1);
+}
+
+.glow-card:hover::before {
+    opacity: 1;
+}
+
+/* Glowing text effects */
+.glow-text-teal {
+    text-shadow: 0 0 15px rgba(20, 184, 166, 0.5);
+}
+.glow-text-blue {
+    text-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+}
+
+/* Custom Sliding Nav Indicator Pill */
+.nav-pill-active {
+    position: absolute;
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(37, 99, 235, 0.12) 100%);
+    border: 1px solid rgba(20, 184, 166, 0.25);
+    border-radius: 8px;
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.light .nav-pill-active {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.08) 0%, rgba(37, 99, 235, 0.08) 100%);
+    border: 1px solid rgba(20, 184, 166, 0.15);
+}
+
+/* Safari Browser Device Mockup styling */
+.browser-mockup {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: #09090b;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.light .browser-mockup {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #ffffff;
+    box-shadow: 0 25px 50px -12px rgba(13, 148, 136, 0.08);
+}
+
+.browser-header {
+    height: 40px;
+    background: #111827;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.light .browser-header {
+    background: #f1f5f9;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.browser-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.browser-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+}
+
+.dot-red { background: #ef4444; }
+.dot-yellow { background: #eab308; }
+.dot-green { background: #22c55e; }
+
+.browser-address-bar {
+    margin: 0 auto;
+    width: 60%;
+    max-width: 400px;
+    height: 24px;
+    border-radius: 6px;
+    background: #09090b;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #64748b;
+    font-family: monospace;
+}
+
+.light .browser-address-bar {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #475569;
+}
+
+.browser-content {
+    height: 240px;
+    overflow-y: auto;
+    padding: 16px;
+    font-size: 12px;
+}
+
+/* Desktop App Mockup styling */
+.desktop-mockup {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: #09090b;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+.light .desktop-mockup {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #f8fafc;
+    box-shadow: 0 25px 50px -12px rgba(13, 148, 136, 0.08);
+}
+
+.desktop-header {
+    height: 36px;
+    background: #111827;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.light .desktop-header {
+    background: #e2e8f0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.desktop-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    font-family: monospace;
+}
+
+.light .desktop-title {
+    color: #475569;
+}
+
+.desktop-body {
+    height: 244px;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+/* Custom interactive input focus rings */
+.focus-ring-glow:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.35), 0 0 15px rgba(20, 184, 166, 0.15);
+    border-color: #0d9488;
+}
+
+/* Synthesizer audio visual wave */
+.sound-bar {
+    width: 2px;
+    height: 3px;
+    background: #0d9488;
+    animation: bounceAudio 1s ease-in-out infinite;
+}
+.sound-bar:nth-child(2) { animation-delay: 0.2s; }
+.sound-bar:nth-child(3) { animation-delay: 0.4s; }
+.sound-bar:nth-child(4) { animation-delay: 0.1s; }
+.sound-bar:nth-child(5) { animation-delay: 0.3s; }
+
+@keyframes bounceAudio {
+    0%, 100% { height: 3px; }
+    50% { height: 14px; }
+}
+
+/* Typing cursor blink */
+@keyframes blink {
+    50% { opacity: 0; }
+}
+.console-cursor {
+    animation: blink 0.8s step-end infinite;
 }

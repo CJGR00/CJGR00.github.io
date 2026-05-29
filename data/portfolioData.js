@@ -12,7 +12,7 @@ export const portfolioData = {
         title: "Computer Science Student &middot; Software Developer &middot; Aspiring Full-Stack Developer",
         description: "A passionate Computer Science student with experience in software development, database management, GUI applications, and web-based systems.",
         status: "Open to Internship Opportunities",
-        resumeUrl: "mailto:christianremulla.01@gmail.com",
+        resumeUrl: "REMULLA_resume.online.pdf",
         email: "christianremulla.01@gmail.com",
         socials: {
             github: "https://github.com/CJGR00",
@@ -140,6 +140,23 @@ export const portfolioData = {
             githubUrl: "https://github.com/CJGR00/POS",
             gradient: "from-rose-500 to-pink-500",
             iconBg: "from-rose-500 to-pink-600"
+        },
+        {
+            title: "TrustFactor",
+            emoji: "🛡️",
+            subtitle: "Multi-Factor Authentication Platform",
+            description: "A secure authentication platform featuring bcrypt password hashing, session cookies, rate-limiting, and two secondary verification pathways: Google Authenticator TOTP and Nodemailer Email OTP.",
+            bullets: [
+                "Google Authenticator TOTP QR code setup",
+                "Email OTP verification (Nodemailer integration)",
+                "Bcrypt password hashing & cookie sessions",
+                "Helmet & Rate Limiting security middleware",
+                "User & Admin controls with SQLite storage"
+            ],
+            tags: ["Node.js", "Express", "SQLite", "TOTP", "Nodemailer", "Security"],
+            githubUrl: "https://github.com/CJGR00/2FA",
+            gradient: "from-cyan-500 to-blue-500",
+            iconBg: "from-cyan-500 to-blue-600"
         }
     ],
     certifications: [
