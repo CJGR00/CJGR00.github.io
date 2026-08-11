@@ -7,8 +7,8 @@ export const portfolioData = {
         initials: "CJ",
         logoText: "CJGR",
         firstName: "Christian Jae",
-        lastName: "Galang Remulla",
-        fullName: "Christian Jae Galang Remulla",
+        lastName: "Remulla",
+        fullName: "Christian Jae Remulla",
         title: "Computer Science Student &middot; Software Developer &middot; Aspiring Full-Stack Developer",
         description: "A passionate Computer Science student with experience in full-stack web development, database management, GUI applications, and modern frameworks like Next.js and Prisma ORM.",
         status: "Open to Internship Opportunities",
@@ -21,13 +21,13 @@ export const portfolioData = {
         },
         stats: [
             { value: "4+", label: "Projects Built" },
-            { value: "8+", label: "Certifications" },
+            { value: "15", label: "Certifications" },
             { value: "7+", label: "Technologies Used" }
         ]
     },
     about: {
         paragraphs: [
-            "I'm currently pursuing a <span class=\"font-semibold text-gray-800 dark:text-gray-200\">Bachelor of Science in Computer Science</span> at <span class=\"font-semibold text-gray-800 dark:text-gray-200\">Cavite State University – Imus Campus</span>, with an expected graduation in 2027.",
+            "I'm currently pursuing a <span class=\"font-semibold text-accent\">Bachelor of Science in Computer Science</span> at <span class=\"font-semibold text-accent\">Cavite State University – Imus Campus</span>, with an expected graduation in 2027.",
             "I enjoy building practical systems that solve real-world problems. My recent work includes DCS-SFMS, a full-stack web application for stakeholder feedback management built with Next.js 16, TypeScript, and Prisma ORM. I'm also experienced in backend development, GUI applications, and database systems.",
             "Outside of academics, I actively pursue certifications in cybersecurity, cloud, and programming to stay sharp and industry-ready for internship and entry-level opportunities."
         ],
@@ -180,52 +180,79 @@ export const portfolioData = {
     ],
     certifications: [
         {
-            title: "ISC2 Certified in Cybersecurity (CC) Training",
-            issuer: "ISC2",
-            emoji: "🛡️",
-            gradient: "from-slate-500/5 to-zinc-500/5"
-        },
-        {
-            title: "AWS AI Practitioner Challenge",
-            issuer: "Udacity & Accenture",
-            emoji: "☁️",
-            gradient: "from-orange-500/5 to-amber-500/5"
-        },
-        {
-            title: "Python Essentials 1 & 2",
+            title: "Python Essentials 1",
             issuer: "Cisco NetAcad",
-            emoji: "🐍",
-            gradient: "from-blue-500/5 to-cyan-500/5"
+            file: "Certificates/Python_Essentials_1_certificate_remullachristian00-gmail-com_927dcbe7-dce9-4ae8-a3b4-17c87e9a9094.pdf"
+        },
+        {
+            title: "Python Essentials 2",
+            issuer: "Cisco NetAcad",
+            file: "Certificates/Python_Essentials_2_certificate_remullachristian00-gmail-com_359e516f-af3a-401f-8400-823d14d96eeb.pdf"
         },
         {
             title: "HTML Essentials",
             issuer: "Cisco NetAcad",
-            emoji: "🌐",
-            gradient: "from-orange-500/5 to-red-500/5"
+            file: "Certificates/HTML_Essentials_certificate_remullachristian00-gmail-com_8d30f392-5284-4e7d-9c9a-85e66c1a72a3.pdf"
         },
         {
             title: "JavaScript Essentials 1",
             issuer: "Cisco NetAcad",
-            emoji: "⚡",
-            gradient: "from-yellow-500/5 to-amber-500/5"
+            file: "Certificates/JavaScript_Essentials_1_certificate_remullachristian00-gmail-com_60d55a87-080b-4b7c-81f0-17015d53694f.pdf"
         },
         {
             title: "C++ Essentials 1",
             issuer: "Cisco NetAcad",
-            emoji: "⚙️",
-            gradient: "from-teal-500/5 to-cyan-500/5"
+            file: "Certificates/C--_Essentials_1_certificate_remullachristian00-gmail-com_da5ea753-ce43-43d2-8ab6-ca382487a9d1.pdf"
+        },
+        {
+            title: "Introduction to Modern AI",
+            issuer: "Cisco NetAcad",
+            file: "Certificates/Introduction_to_Modern_AI_certificate_remullachristian00-gmail-com_09468efe-89bf-4ba1-add2-5f474499d7cb.pdf"
+        },
+        {
+            title: "Introduction to IoT",
+            issuer: "Cisco NetAcad",
+            file: "Certificates/Introduction_to_IoT_certificate_remullachristian00-gmail-com_ddb72c2a-96fd-4cc8-a44b-d062ba4a4eb0.pdf"
+        },
+        {
+            title: "Introduction to Data Science",
+            issuer: "Cisco NetAcad",
+            file: "Certificates/Introduction_to_Data_Science_certificate_remullachristian00-gmail-com_c224f8c1-c231-4bbc-8f95-6b52bdfef6e9.pdf"
+        },
+        {
+            title: "Computer Hardware Basics",
+            issuer: "Cisco NetAcad",
+            file: "Certificates/Computer_Hardware_Basics_certificate_remullachristian00-gmail-com_e4e0546c-c915-44d1-b017-14e7266fe3bc.pdf"
+        },
+        {
+            title: "Operating Systems Basics",
+            issuer: "Cisco NetAcad",
+            file: "Certificates/Operating_Systems_Basics_certificate_remullachristian00-gmail-com_c81f04ab-b6b0-4705-9425-b22f2d372c8d.pdf"
+        },
+        {
+            title: "AI at Work: Analyze Customer Reviews",
+            issuer: "Cisco NetAcad",
+            file: "Certificates/AI_at_Work-_Analyze_Customer_Reviews_certificate_remullachristian00-gmail-com_6401e3f2-b040-4829-8d51-2763dea21279.pdf"
+        },
+        {
+            title: "ISC2 CC Domain",
+            issuer: "ISC2",
+            file: "Certificates/ISC2 CC Domain.pdf"
+        },
+        {
+            title: "AWS Academy Graduate - Generative AI Foundations",
+            issuer: "AWS Academy",
+            file: "Certificates/AWSAcademy12NEW20260519-31-8kw8ka.pdf"
         },
         {
             title: "Data Future PH 2025",
             issuer: "Data Analytics Philippines",
-            emoji: "📊",
-            gradient: "from-teal-500/5 to-green-500/5"
+            file: "Certificates/Christian Jae Galang Remulla.pdf"
         },
         {
             title: "Semiconductor Readiness",
-            issuer: "Cavite State University Indang",
-            emoji: "🔬",
-            gradient: "from-teal-500/5 to-blue-500/5"
+            issuer: "Cavite State University",
+            file: "Certificates/COP_SEMICONDUCTOR MAY 9.pdf"
         }
     ]
 };

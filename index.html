@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     
-    <title>Christian Jae Galang Remulla – CS Student & Aspiring Software Developer</title>
+    <title>ChristianRemulla.Portfolio</title>
     
     <meta name="description" content="Personal portfolio of Christian Jae Galang Remulla, a Computer Science student at CvSU–Imus with experience in software development, web systems, GUI applications, and database management."/>
     <meta name="keywords" content="Christian Remulla, computer science, software developer, portfolio, CvSU, full-stack, Java, Python, JavaScript, MySQL"/>
     <meta property="og:title" content="Christian Jae Galang Remulla – CS Student & Aspiring Software Developer"/>
     <meta property="og:description" content="Personal portfolio showcasing projects, certifications, and skills in software development, web systems, and database management."/>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="pic/website logo.png"/>
+    
     <!-- Google Fonts: Playfair Display & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css"/>
@@ -23,7 +26,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -32,38 +34,18 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        primary: {
-                            DEFAULT: '#1a1a1a',
-                            light: '#2d2d2d',
-                        },
-                        accent: {
-                            DEFAULT: '#c9a227',
-                            light: '#d4b44a',
-                        },
-                        bg: {
-                            DEFAULT: '#fafafa',
-                            dark: '#1a1a1a',
-                        },
-                        surface: {
-                            DEFAULT: '#ffffff',
-                            dark: '#242424',
-                        },
-                        text: {
-                            DEFAULT: '#1a1a1a',
-                            dark: '#e5e7eb',
-                        },
-                        'text-secondary': {
-                            DEFAULT: '#6b7280',
-                            dark: '#9ca3af',
-                        },
-                        border: {
-                            DEFAULT: '#e5e7eb',
-                            dark: '#374151',
-                        },
-                        'border-light': {
-                            DEFAULT: '#f3f4f6',
-                            dark: '#1f2937',
-                        },
+                        primary: '#e5e7eb',
+                        'primary-dark': '#1a1a1a',
+                        accent: '#c9a227',
+                        'accent-light': '#d4b44a',
+                        bg: '#1a1a1a',
+                        'bg-light': '#242424',
+                        surface: '#242424',
+                        'surface-light': '#2d2d2d',
+                        text: '#e5e7eb',
+                        'text-secondary': '#9ca3af',
+                        border: '#374151',
+                        'border-light': '#1f2937',
                     }
                 }
             }
@@ -74,6 +56,89 @@
     <script type="module" src="app.js"></script>
 </head>
 <body class="antialiased">
+    <!-- Terminal Loading Screen -->
+    <div id="terminal-loader" class="terminal-loader">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="terminal-btn terminal-btn-close"></span>
+                    <span class="terminal-btn terminal-btn-minimize"></span>
+                    <span class="terminal-btn terminal-btn-maximize"></span>
+                </div>
+                <div class="terminal-title">portfolio@system ~ %</div>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+                <div class="terminal-line" data-delay="0">
+                    <span class="terminal-prompt">$</span>
+                    <span class="terminal-text">Initializing portfolio system...</span>
+                </div>
+                <div class="terminal-line" data-delay="300">
+                    <span class="terminal-prompt">[</span>
+                    <span class="terminal-status">OK</span>
+                    <span class="terminal-prompt">]</span>
+                    <span class="terminal-text">Loading core modules</span>
+                </div>
+                <div class="terminal-line" data-delay="600">
+                    <span class="terminal-prompt">[</span>
+                    <span class="terminal-status">OK</span>
+                    <span class="terminal-prompt">]</span>
+                    <span class="terminal-text">Mounting MVC architecture</span>
+                </div>
+                <div class="terminal-line" data-delay="900">
+                    <span class="terminal-prompt">[</span>
+                    <span class="terminal-status">OK</span>
+                    <span class="terminal-prompt">]</span>
+                    <span class="terminal-text">Connecting data models</span>
+                </div>
+                <div class="terminal-line" data-delay="1200">
+                    <span class="terminal-prompt">[</span>
+                    <span class="terminal-status">OK</span>
+                    <span class="terminal-prompt">]</span>
+                    <span class="terminal-text">Rendering view components</span>
+                </div>
+                <div class="terminal-line" data-delay="1500">
+                    <span class="terminal-prompt">[</span>
+                    <span class="terminal-status">OK</span>
+                    <span class="terminal-prompt">]</span>
+                    <span class="terminal-text">Binding event listeners</span>
+                </div>
+                <div class="terminal-line" data-delay="1800">
+                    <span class="terminal-prompt">[</span>
+                    <span class="terminal-status">OK</span>
+                    <span class="terminal-prompt">]</span>
+                    <span class="terminal-text">Activating scroll observer</span>
+                </div>
+                <div class="terminal-line" data-delay="2100">
+                    <span class="terminal-prompt">[</span>
+                    <span class="terminal-status">OK</span>
+                    <span class="terminal-prompt">]</span>
+                    <span class="terminal-text">Loading certifications data</span>
+                </div>
+                <div class="terminal-line" data-delay="2400">
+                    <span class="terminal-prompt">[</span>
+                    <span class="terminal-status">OK</span>
+                    <span class="terminal-prompt">]</span>
+                    <span class="terminal-text">Initializing audio context</span>
+                </div>
+                <div class="terminal-line terminal-hire" data-delay="2700">
+                    <span class="terminal-prompt">[</span>
+                    <span class="terminal-hire-option">YES</span>
+                    <span class="terminal-prompt">/</span>
+                    <span class="terminal-hire-option">YES</span>
+                    <span class="terminal-prompt">]</span>
+                    <span class="terminal-hire-question">"HIRE CHRISTIAN REMULLA?"</span>
+                </div>
+                <div class="terminal-line terminal-success" data-delay="3000">
+                    <span class="terminal-prompt">$</span>
+                    <span class="terminal-text">Portfolio system ready. Welcome!</span>
+                </div>
+            </div>
+            <div class="terminal-progress">
+                <div class="terminal-progress-bar" id="terminal-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- MVC Target Root App Container -->
     <div id="app"></div>
 </body>

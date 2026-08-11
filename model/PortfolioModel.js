@@ -2,7 +2,7 @@ import { portfolioData } from '../data/portfolioData.js';
 
 /**
  * PortfolioModel Class
- * Manages the data state, dark/light theme options, and UI visibility states.
+ * Manages the data state and UI visibility states.
  */
 export class PortfolioModel {
     constructor() {
@@ -10,18 +10,17 @@ export class PortfolioModel {
         this.observers = {};
         
         // Initialize States
-        this.theme = this._initializeTheme();
         this.isMobileMenuOpen = false;
         this.activeSection = '';
         this.activeSkillsCategory = 'All';
         this.activeCertsCategory = 'All';
-        this.sfxEnabled = localStorage.getItem('sfxEnabled') === 'enabled';
+        this.sfxEnabled = true;
         this.contactPreset = '';
     }
 
     /**
      * Registers an observer for a specific state change event.
-     * @param {string} event - The event name (e.g. 'themeChange', 'menuChange', 'sectionChange')
+     * @param {string} event - The event name (e.g. 'menuChange', 'sectionChange')
      * @param {function} callback - Callback function to fire when state changes
      */
     addObserver(event, callback) {
@@ -40,15 +39,6 @@ export class PortfolioModel {
         if (this.observers[event]) {
             this.observers[event].forEach(callback => callback(data));
         }
-    }
-
-    /**
-     * Toggles the application theme between dark and light modes.
-     */
-    toggleTheme() {
-        this.theme = this.theme === 'dark' ? 'light' : 'dark';
-        localStorage.setItem('darkMode', this.theme === 'dark' ? 'enabled' : 'disabled');
-        this.notify('themeChange', this.theme);
     }
 
     /**
@@ -109,20 +99,5 @@ export class PortfolioModel {
             this.activeSection = sectionId;
             this.notify('sectionChange', this.activeSection);
         }
-    }
-
-    /**
-     * Private helper to read theme preferences from LocalStorage or system queries.
-     */
-    _initializeTheme() {
-        const savedMode = localStorage.getItem('darkMode');
-        if (savedMode === 'enabled') {
-            return 'dark';
-        } else if (savedMode === 'disabled') {
-            return 'light';
-        }
-        // Fall back to media query matching
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        return prefersDark ? 'dark' : 'light';
     }
 }

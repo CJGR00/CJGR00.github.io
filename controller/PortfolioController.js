@@ -21,14 +21,12 @@ export class PortfolioController {
         this.view.render(this.model.data);
 
         // 2. Load and present initial application states
-        this.view.updateTheme(this.model.theme);
         this.view.updateSfx(this.model.sfxEnabled);
         this.view.updateActiveSection(this.model.activeSection);
         this.view.updateSkillsFilter(this.model.activeSkillsCategory);
         this.view.updateCertsFilter(this.model.activeCertsCategory);
 
         // 3. Register state observers on the Model
-        this.model.addObserver('themeChange', (theme) => this.view.updateTheme(theme));
         this.model.addObserver('sfxChange', (enabled) => this.view.updateSfx(enabled));
         this.model.addObserver('menuChange', (isOpen) => this.view.updateMobileMenu(isOpen));
         this.model.addObserver('sectionChange', (sectionId) => this.view.updateActiveSection(sectionId));
@@ -40,7 +38,6 @@ export class PortfolioController {
         this.model.addObserver('contactPresetChange', (preset) => this.view.updateContactPreset(preset, this.model.data.profile));
 
         // 4. Bind UI interactions from the View to Model mutations
-        this.view.bindThemeToggle(() => this.model.toggleTheme());
         this.view.bindSfxToggle(() => this.model.toggleSfx());
         this.view.bindMobileMenuToggle((isOpen) => this.model.setMobileMenuState(isOpen));
 
