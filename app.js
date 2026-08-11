@@ -14,27 +14,36 @@ function initTerminalLoader() {
     if (!loader || !terminalBody || !progressBar || !app) return;
     
     const lines = terminalBody.querySelectorAll('.terminal-line');
-    const totalDuration = 3500; // Total animation duration in ms
     const lineCount = lines.length;
+    const lineDelay = 300; // ms between each line
+    const totalDuration = lineCount * lineDelay + 500; // total time for all lines + buffer
     
-    // Animate each line with its delay
+    // Hide all lines initially
+    lines.forEach(line => {
+        line.style.opacity = '0';
+        line.style.transform = 'translateY(5px)';
+        line.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+    });
+    
+    // Show lines one by one
     lines.forEach((line, index) => {
-        const delay = parseInt(line.getAttribute('data-delay')) || 0;
         setTimeout(() => {
-            line.classList.add('animate');
-        }, delay);
+            line.style.opacity = '1';
+            line.style.transform = 'translateY(0)';
+        }, index * lineDelay);
     });
     
     // Animate progress bar
     let progress = 0;
+    const progressStep = 100 / (totalDuration / 30);
     const progressInterval = setInterval(() => {
-        progress += 2;
+        progress += progressStep;
         if (progress >= 100) {
             progress = 100;
             clearInterval(progressInterval);
         }
         progressBar.style.width = `${progress}%`;
-    }, totalDuration / 50);
+    }, 30);
     
     // Hide loader and show app after animation completes
     setTimeout(() => {
@@ -45,7 +54,7 @@ function initTerminalLoader() {
         setTimeout(() => {
             loader.remove();
         }, 500);
-    }, totalDuration + 500);
+    }, totalDuration);
 }
 
 /**
