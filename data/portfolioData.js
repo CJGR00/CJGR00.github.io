@@ -10,7 +10,7 @@ export const portfolioData = {
         lastName: "Galang Remulla",
         fullName: "Christian Jae Galang Remulla",
         title: "Computer Science Student &middot; Software Developer &middot; Aspiring Full-Stack Developer",
-        description: "A passionate Computer Science student with experience in software development, database management, GUI applications, and web-based systems.",
+        description: "A passionate Computer Science student with experience in full-stack web development, database management, GUI applications, and modern frameworks like Next.js and Prisma ORM.",
         status: "Open to Internship Opportunities",
         resumeUrl: "REMULLA_resume.online.pdf",
         email: "christianremulla.01@gmail.com",
@@ -20,15 +20,15 @@ export const portfolioData = {
             email: "mailto:christianremulla.01@gmail.com"
         },
         stats: [
-            { value: "3+", label: "Projects Built" },
+            { value: "4+", label: "Projects Built" },
             { value: "8+", label: "Certifications" },
-            { value: "5+", label: "Languages Known" }
+            { value: "7+", label: "Technologies Used" }
         ]
     },
     about: {
         paragraphs: [
             "I'm currently pursuing a <span class=\"font-semibold text-gray-800 dark:text-gray-200\">Bachelor of Science in Computer Science</span> at <span class=\"font-semibold text-gray-800 dark:text-gray-200\">Cavite State University – Imus Campus</span>, with an expected graduation in 2027.",
-            "I enjoy building practical systems that solve real-world problems through software development and technology. My interests include backend development, GUI applications, database systems, and modern web technologies.",
+            "I enjoy building practical systems that solve real-world problems. My recent work includes DCS-SFMS, a full-stack web application for stakeholder feedback management built with Next.js 16, TypeScript, and Prisma ORM. I'm also experienced in backend development, GUI applications, and database systems.",
             "Outside of academics, I actively pursue certifications in cybersecurity, cloud, and programming to stay sharp and industry-ready for internship and entry-level opportunities."
         ],
         widgets: [
@@ -61,22 +61,22 @@ export const portfolioData = {
         {
             category: "Programming Languages",
             emoji: "💻",
-            items: ["Java", "Python", "C++", "JavaScript"]
+            items: ["Java", "Python", "C++", "JavaScript", "TypeScript"]
         },
         {
             category: "Web Technologies",
             emoji: "🌐",
-            items: ["HTML", "CSS", "PHP"]
+            items: ["HTML", "CSS", "PHP", "Next.js", "Node.js"]
         },
         {
             category: "Databases",
             emoji: "🗄️",
-            items: ["MySQL", "JSON"]
+            items: ["MySQL", "SQLite", "JSON", "Prisma ORM"]
         },
         {
             category: "Frameworks & Libraries",
             emoji: "📦",
-            items: ["Tkinter", "Java Swing", "Botpress"]
+            items: ["Tkinter", "Java Swing", "Botpress", "Chart.js", "jsPDF"]
         },
         {
             category: "Tools & Platforms",
@@ -90,6 +90,25 @@ export const portfolioData = {
         }
     ],
     projects: [
+        {
+            title: "DCS-SFMS",
+            emoji: "🎓",
+            subtitle: "Department of Computer Studies Stakeholder Feedback Management System",
+            description: "A full-stack web application built for Cavite State University — Imus Campus, Department of Computer Studies. It digitizes the official HRDO-QF-07 paper feedback form and provides a complete suite of tools for managing stakeholder responses, generating reports, and controlling system access.",
+            bullets: [
+                "QR Code generation with auto LAN IP detection",
+                "Mobile-responsive survey form",
+                "Event & form management dashboard",
+                "PDF/Excel summary & detailed reports",
+                "User account management with role-based access",
+                "Report approval workflow",
+                "Audit activity log & archive system"
+            ],
+            tags: ["Next.js 16", "TypeScript", "Prisma ORM", "SQLite", "jsPDF", "Chart.js", "Node.js"],
+            githubUrl: "https://github.com/CJGR00/DCS-SFMS",
+            gradient: "from-amber-500 to-orange-500",
+            iconBg: "from-amber-500 to-orange-600"
+        },
         {
             title: "SmartQueue",
             emoji: "🧾",
@@ -194,7 +213,7 @@ export const portfolioData = {
             title: "C++ Essentials 1",
             issuer: "Cisco NetAcad",
             emoji: "⚙️",
-            gradient: "from-indigo-500/5 to-violet-500/5"
+            gradient: "from-teal-500/5 to-cyan-500/5"
         },
         {
             title: "Data Future PH 2025",
@@ -206,7 +225,7 @@ export const portfolioData = {
             title: "Semiconductor Readiness",
             issuer: "Cavite State University Indang",
             emoji: "🔬",
-            gradient: "from-violet-500/5 to-purple-500/5"
+            gradient: "from-teal-500/5 to-blue-500/5"
         }
     ]
 };

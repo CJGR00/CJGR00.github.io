@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -11,10 +11,10 @@
     <meta property="og:title" content="Christian Jae Galang Remulla – CS Student & Aspiring Software Developer"/>
     <meta property="og:description" content="Personal portfolio showcasing projects, certifications, and skills in software development, web systems, and database management."/>
     
-    <!-- Google Fonts: Playfair Display & Inter -->
+    <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css"/>
@@ -27,43 +27,13 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        serif: ['Playfair Display', 'Georgia', 'serif'],
-                        sans: ['Inter', '-apple-system', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Outfit', 'sans-serif'],
+                        jakarta: ['Plus Jakarta Sans', 'sans-serif'],
                     },
                     colors: {
-                        primary: {
-                            DEFAULT: '#1a1a1a',
-                            light: '#2d2d2d',
-                        },
-                        accent: {
-                            DEFAULT: '#c9a227',
-                            light: '#d4b44a',
-                        },
-                        bg: {
-                            DEFAULT: '#fafafa',
-                            dark: '#1a1a1a',
-                        },
-                        surface: {
-                            DEFAULT: '#ffffff',
-                            dark: '#242424',
-                        },
-                        text: {
-                            DEFAULT: '#1a1a1a',
-                            dark: '#e5e7eb',
-                        },
-                        'text-secondary': {
-                            DEFAULT: '#6b7280',
-                            dark: '#9ca3af',
-                        },
-                        border: {
-                            DEFAULT: '#e5e7eb',
-                            dark: '#374151',
-                        },
-                        'border-light': {
-                            DEFAULT: '#f3f4f6',
-                            dark: '#1f2937',
-                        },
+                        gray: {
+                            950: '#030712',
+                        }
                     }
                 }
             }

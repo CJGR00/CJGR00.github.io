@@ -1,0 +1,160 @@
+---
+name: CJGR Portfolio
+description: Personal portfolio of Christian Jae Galang Remulla - CS Student & Aspiring Software Developer
+colors:
+  primary: "#0d9488"
+  primary-deep: "#0f766e"
+  secondary: "#2563eb"
+  secondary-deep: "#1d4ed8"
+  cyan: "#0ea5e9"
+  dark-bg: "#09090b"
+  dark-surface: "#111827"
+  dark-text: "#f8fafc"
+  light-bg: "#f8fafc"
+  light-surface: "#ffffff"
+  light-text: "#030712"
+  gray-900: "#111827"
+  gray-800: "#1f2937"
+  gray-700: "#374151"
+  gray-600: "#4b5563"
+  gray-500: "#6b7280"
+  gray-400: "#9ca3af"
+  gray-300: "#d1d5db"
+  gray-200: "#e5e7eb"
+  gray-100: "#f3f4f6"
+  gray-50: "#f9fafb"
+typography:
+  display:
+    fontFamily: "Outfit, sans-serif"
+    fontSize: "clamp(2.5rem, 5vw, 4.5rem)"
+    fontWeight: 700
+    lineHeight: 1.1
+    letterSpacing: "-0.02em"
+  body:
+    fontFamily: "Plus Jakarta Sans, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 400
+    lineHeight: 1.6
+    letterSpacing: "normal"
+  heading:
+    fontFamily: "Outfit, sans-serif"
+    fontSize: "clamp(1.5rem, 3vw, 2.5rem)"
+    fontWeight: 600
+    lineHeight: 1.2
+    letterSpacing: "-0.01em"
+  mono:
+    fontFamily: "monospace"
+    fontSize: "0.875rem"
+    fontWeight: 400
+    lineHeight: 1.5
+rounded:
+  sm: "4px"
+  md: "8px"
+  lg: "12px"
+  xl: "16px"
+  full: "9999px"
+spacing:
+  xs: "4px"
+  sm: "8px"
+  md: "16px"
+  lg: "24px"
+  xl: "32px"
+  "2xl": "48px"
+  "3xl": "64px"
+  "4xl": "96px"
+components:
+  glass-panel:
+    backgroundColor: "rgba(10, 10, 15, 0.7)"
+    backdropFilter: "blur(16px) saturate(120%)"
+    border: "1px solid rgba(255, 255, 255, 0.04)"
+    boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.37)"
+  glass-panel-light:
+    backgroundColor: "rgba(255, 255, 255, 0.75)"
+    backdropFilter: "blur(16px) saturate(120%)"
+    border: "1px solid rgba(13, 148, 136, 0.08)"
+    boxShadow: "0 8px 32px 0 rgba(13, 148, 136, 0.04)"
+  glow-card:
+    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "#ffffff"
+    rounded: "{rounded.lg}"
+    padding: "12px 24px"
+  button-secondary:
+    backgroundColor: "transparent"
+    textColor: "{colors.primary}"
+    border: "1px solid {colors.primary}"
+    rounded: "{rounded.lg}"
+    padding: "12px 24px"
+---
+
+## Overview
+
+This portfolio uses a cyberpunk-inspired design with glassmorphic elements, neon accents, and smooth animations. The design balances technical aesthetics with professional presentation, featuring dark/light theme support and responsive layouts.
+
+## Colors
+
+The color palette centers around teal as the primary accent with blue and cyan as secondary accents. Dark mode uses near-black backgrounds with white text, while light mode uses light gray backgrounds with dark text.
+
+- **Primary**: Teal (#0d9488) - main accent for interactive elements
+- **Secondary**: Blue (#2563eb) - complementary accent
+- **Cyan**: (#0ea5e9) - tertiary accent for highlights
+- **Dark Theme**: Near-black backgrounds (#09090b, #111827) with light text
+- **Light Theme**: Light gray backgrounds (#f8fafc, #ffffff) with dark text
+
+## Typography
+
+Two font families are used:
+- **Outfit**: For headings and display text (700 weight, tight tracking)
+- **Plus Jakarta Sans**: For body text and paragraphs (400 weight, normal tracking)
+
+Type scale uses responsive clamp values for fluid typography.
+
+## Layout
+
+The layout uses a single-column centered design with maximum width constraints. Sections are separated by generous vertical padding. The navigation is fixed at the top with a glassmorphic background.
+
+- **Max width**: 1200px centered
+- **Section padding**: 64px vertical, 24px horizontal
+- **Grid system**: Tailwind CSS grid with responsive breakpoints
+
+## Elevation & Depth
+
+Depth is created through:
+- Glassmorphic panels with backdrop blur
+- Subtle shadows with color-tinted glows
+- Border highlights on hover states
+- Layered backgrounds with mesh gradients
+
+## Shapes
+
+The design uses rounded corners throughout:
+- **Buttons**: Large rounded (12px)
+- **Cards**: Medium rounded (12px) with glow effects
+- **Inputs**: Medium rounded (8px)
+- **Avatars/Pills**: Full rounding (9999px)
+
+## Components
+
+Key components include:
+- **Glass panels**: Backdrop-blur containers with subtle borders
+- **Glow cards**: Cards with gradient border glow on hover
+- **Navigation**: Fixed glassmorphic navbar with sliding pill indicator
+- **Browser mockups**: Styled containers for project previews
+- **Sound bars**: Animated audio visualizer elements
+
+## Do's and Don'ts
+
+**Do:**
+- Use glassmorphic effects for containers
+- Maintain consistent teal accent usage
+- Ensure proper contrast in both themes
+- Use smooth transitions (0.3s cubic-bezier)
+- Keep animations purposeful and subtle
+
+**Don't:**
+- Overuse glow effects or neon colors
+- Use pure black (#000000) or white (#ffffff)
+- Create overly complex animations
+- Use too many font families
+- Ignore mobile responsiveness

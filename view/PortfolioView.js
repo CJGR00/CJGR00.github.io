@@ -1,14 +1,12 @@
 /**
- * PortfolioView Class - UI/UX Pro Max Edition
- * Handles highly aesthetic HTML generation, glassmorphic layout compiling,
- * interactive CSS device mockups, dynamic filters, sliding nav indicator,
- * and high-fidelity synthesizer-based audio effects (SFX).
+ * PortfolioView Class - Editorial Design
+ * Clean typography, asymmetric layouts, generous whitespace.
+ * Dark mode support via Tailwind dark: variants.
  */
 export class PortfolioView {
     constructor() {
         this.appContainer = document.getElementById('app');
         
-        // Cache object elements
         this.header = null;
         this.htmlEl = document.documentElement;
         this.darkToggleBtn = null;
@@ -17,12 +15,9 @@ export class PortfolioView {
         this.mobileMenu = null;
         this.scrollDownBtn = null;
         
-        // Navigation cache
         this.desktopNavButtons = [];
         this.mobileNavButtons = [];
-        this.navPillActive = null;
         
-        // Interactive Elements Cache
         this.heroCTAButtons = [];
         this.skillsFilterButtons = [];
         this.certsFilterButtons = [];
@@ -31,30 +26,13 @@ export class PortfolioView {
         this.contactSendBtn = null;
         this.terminalTabs = [];
         
-        // Internal audio state
         this.sfxEnabled = false;
-        
-        // Synthesizer Audio Engine Context
         this.audioCtx = null;
     }
 
-    /**
-     * Renders the complete "UI/UX Pro Max" structural layout.
-     * @param {object} data - Structured portfolio data
-     */
     render(data) {
         this.appContainer.innerHTML = `
-            <div class="min-h-screen bg-[#020817] text-slate-100 selection:bg-teal-500/30 selection:text-white transition-colors duration-500 relative overflow-x-hidden">
-                <!-- Ambient Cosmic Background Blobs (WOW Factor) -->
-                <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-                    <div class="absolute top-[10%] left-[5%] w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full bg-gradient-to-tr from-teal-600/10 to-transparent blur-[120px] animate-glow-pulse"></div>
-                    <div class="absolute top-[35%] right-[5%] w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] rounded-full bg-gradient-to-br from-blue-600/10 to-transparent blur-[110px] animate-glow-pulse [animation-delay:3s]"></div>
-                    <div class="absolute bottom-[15%] left-[20%] w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] rounded-full bg-gradient-to-tr from-sky-600/8 to-transparent blur-[100px] animate-glow-pulse [animation-delay:6s]"></div>
-                </div>
-                
-                <!-- Background Grid Overlay -->
-                <div class="absolute inset-0 cyber-grid opacity-10 pointer-events-none z-0"></div>
-
+            <div class="min-h-screen bg-bg dark:bg-bg-dark text-text dark:text-text-dark font-sans selection:bg-accent/20 selection:text-white transition-colors duration-500 relative overflow-x-hidden">
                 <div class="relative z-10">
                     ${this._createHeaderHTML(data.profile)}
                     ${this._createMobileMenuHTML(data.profile)}
@@ -73,19 +51,14 @@ export class PortfolioView {
             </div>
         `;
 
-        // Cache elements and run presentation animations
         this._cacheElements();
         this._initScrollHeaderBehavior();
         this._initScrollRevealBehavior();
-        this._initNavPillInteraction();
         this._initTerminalTabs();
         this._initProjectTabs();
         this._initAudioTriggers();
     }
 
-    /**
-     * Cache dynamically injected elements for later MVC manipulation
-     */
     _cacheElements() {
         this.header = document.querySelector('header');
         this.darkToggleBtn = document.querySelector('button[aria-label="Toggle dark mode"]');
@@ -94,31 +67,21 @@ export class PortfolioView {
         this.mobileMenu = document.getElementById('mobile-menu');
         this.scrollDownBtn = document.querySelector('button[aria-label="Scroll down"]');
         
-        // Nav items
         this.desktopNavButtons = document.querySelectorAll('header nav ul li button');
         this.mobileNavButtons = document.querySelectorAll('.mobile-nav-btn');
-        this.navPillActive = document.querySelector('.nav-pill-active');
         
-        // Actions
         this.heroCTAButtons = document.querySelectorAll('section:first-of-type button, section:first-of-type a');
         
-        // Filters & Search
         this.skillsFilterButtons = document.querySelectorAll('.skills-filter-btn');
         this.certsFilterButtons = document.querySelectorAll('.certs-filter-btn');
         this.certsSearchInput = document.getElementById('certs-search');
         
-        // Presets & Contact
         this.contactPresetButtons = document.querySelectorAll('.contact-preset-card');
         this.contactSendBtn = document.getElementById('contact-send-btn');
         
-        // Terminal elements
         this.terminalTabs = document.querySelectorAll('.terminal-tab');
     }
 
-    /**
-     * Updates the DOM state to match the model's theme preference.
-     * @param {string} theme - 'dark' | 'light'
-     */
     updateTheme(theme) {
         if (theme === 'dark') {
             this.htmlEl.classList.add('dark');
@@ -133,12 +96,6 @@ export class PortfolioView {
                     </svg>
                 `;
             }
-            // Repaint variables in index container
-            const container = this.appContainer.querySelector('.min-h-screen');
-            if (container) {
-                container.classList.add('bg-[#020817]', 'text-slate-100');
-                container.classList.remove('bg-slate-50', 'text-slate-900');
-            }
         } else {
             this.htmlEl.classList.remove('dark');
             this.htmlEl.classList.add('light');
@@ -149,21 +106,10 @@ export class PortfolioView {
                     </svg>
                 `;
             }
-            const container = this.appContainer.querySelector('.min-h-screen');
-            if (container) {
-                container.classList.remove('bg-[#020817]', 'text-slate-100');
-                container.classList.add('bg-slate-50', 'text-slate-900');
-            }
         }
-        
-        // Trigger a tiny click noise
         this._playSFX('toggle');
     }
 
-    /**
-     * Updates SFX Sound Effects status.
-     * @param {boolean} enabled 
-     */
     updateSfx(enabled) {
         this.sfxEnabled = enabled;
         if (this.sfxToggleBtn) {
@@ -175,23 +121,19 @@ export class PortfolioView {
                         <span class="sound-bar"></span>
                     </div>
                 `;
-                this.sfxToggleBtn.classList.add('text-teal-500', 'border-teal-500/25', 'bg-teal-500/5');
+                this.sfxToggleBtn.classList.add('text-accent');
             } else {
                 this.sfxToggleBtn.innerHTML = `
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-x" aria-hidden="true">
                         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="22" y1="9" x2="16" y2="15"></line><line x1="16" y1="9" x2="22" y2="15"></line>
                     </svg>
                 `;
-                this.sfxToggleBtn.classList.remove('text-teal-500', 'border-teal-500/25', 'bg-teal-500/5');
+                this.sfxToggleBtn.classList.remove('text-accent');
             }
         }
         this._playSFX('toggle');
     }
 
-    /**
-     * Updates mobile menu visibility states.
-     * @param {boolean} isOpen 
-     */
     updateMobileMenu(isOpen) {
         if (!this.mobileMenu || !this.menuToggleBtn) return;
 
@@ -215,64 +157,45 @@ export class PortfolioView {
         this._playSFX('click');
     }
 
-    /**
-     * Updates active navigation state styling.
-     * @param {string} activeSection 
-     */
     updateActiveSection(activeSection) {
         const sections = ['about', 'skills', 'projects', 'certifications', 'contact'];
         
-        // Desktop nav highlighting
         this.desktopNavButtons.forEach((btn, index) => {
             const isCurrent = sections[index] === activeSection;
             if (isCurrent) {
-                btn.classList.add('text-teal-600', 'dark:text-teal-400');
-                btn.classList.remove('text-slate-600', 'dark:text-slate-400', 'text-slate-900', 'dark:text-slate-100');
-                
-                // Reposition absolute sliding pill
-                this._positionNavPill(btn);
+                btn.classList.add('text-accent');
+                btn.classList.remove('text-text-secondary', 'dark:text-text-secondary-dark');
             } else {
-                btn.classList.remove('text-teal-600', 'dark:text-teal-400');
-                btn.classList.add('text-slate-600', 'dark:text-slate-400');
+                btn.classList.remove('text-accent');
+                btn.classList.add('text-text-secondary', 'dark:text-text-secondary-dark');
             }
         });
 
-        if (!activeSection || activeSection === 'top') {
-            this._hideNavPill();
-        }
-
-        // Mobile nav highlighting
         this.mobileNavButtons.forEach(btn => {
             const target = btn.getAttribute('data-target');
             const isCurrent = target === activeSection;
             if (isCurrent) {
-                btn.classList.add('text-teal-500', 'dark:text-teal-400', 'border-l-4', 'border-teal-500', 'pl-4');
-                btn.classList.remove('text-slate-600', 'dark:text-slate-400');
+                btn.classList.add('text-accent', 'pl-4');
+                btn.classList.remove('text-text-secondary', 'dark:text-text-secondary-dark');
             } else {
-                btn.classList.remove('text-teal-500', 'dark:text-teal-400', 'border-l-4', 'border-teal-500', 'pl-4');
-                btn.classList.add('text-slate-600', 'dark:text-slate-400');
+                btn.classList.remove('text-accent', 'pl-4');
+                btn.classList.add('text-text-secondary', 'dark:text-text-secondary-dark');
             }
         });
     }
 
-    /**
-     * Repaint the skills display when category is filtered.
-     * @param {string} category - 'All' | 'Programming' | etc.
-     */
     updateSkillsFilter(category) {
-        // Toggle active states on tabs
         this.skillsFilterButtons.forEach(btn => {
             const val = btn.getAttribute('data-category');
             if (val === category) {
-                btn.classList.add('bg-teal-600', 'text-white', 'shadow-lg', 'shadow-teal-500/25');
-                btn.classList.remove('bg-slate-100', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400', 'border-slate-200/50', 'dark:border-slate-800/50');
+                btn.classList.add('bg-primary', 'dark:bg-accent', 'text-white');
+                btn.classList.remove('bg-border-light', 'dark:bg-border-light-dark', 'text-text-secondary', 'dark:text-text-secondary-dark', 'border-border', 'dark:border-border-dark');
             } else {
-                btn.classList.remove('bg-teal-600', 'text-white', 'shadow-lg', 'shadow-teal-500/25');
-                btn.classList.add('bg-slate-100', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400', 'border-slate-200/50', 'dark:border-slate-800/50');
+                btn.classList.remove('bg-primary', 'dark:bg-accent', 'text-white');
+                btn.classList.add('bg-border-light', 'dark:bg-border-light-dark', 'text-text-secondary', 'dark:text-text-secondary-dark', 'border-border', 'dark:border-border-dark');
             }
         });
 
-        // Filter actual elements dynamically
         const skillCards = document.querySelectorAll('.skill-category-card');
         skillCards.forEach(card => {
             const cardCat = card.getAttribute('data-category');
@@ -280,11 +203,11 @@ export class PortfolioView {
                 card.classList.remove('hidden');
                 setTimeout(() => {
                     card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';
+                    card.style.transform = 'translateY(0)';
                 }, 50);
             } else {
                 card.style.opacity = '0';
-                card.style.transform = 'scale(0.95)';
+                card.style.transform = 'translateY(8px)';
                 setTimeout(() => card.classList.add('hidden'), 200);
             }
         });
@@ -292,21 +215,15 @@ export class PortfolioView {
         this._playSFX('click');
     }
 
-    /**
-     * Repaint certifications cards based on active filters and search queries.
-     * @param {string} category - 'All' | 'ISC2' | etc.
-     * @param {string} searchQuery - term to match
-     */
     updateCertsFilter(category, searchQuery = '') {
-        // Handle filter buttons highlights
         this.certsFilterButtons.forEach(btn => {
             const val = btn.getAttribute('data-category');
             if (val === category) {
-                btn.classList.add('bg-teal-600', 'text-white', 'shadow-lg', 'shadow-teal-500/25');
-                btn.classList.remove('bg-slate-100', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400');
+                btn.classList.add('bg-primary', 'dark:bg-accent', 'text-white');
+                btn.classList.remove('bg-border-light', 'dark:bg-border-light-dark', 'text-text-secondary', 'dark:text-text-secondary-dark');
             } else {
-                btn.classList.remove('bg-teal-600', 'text-white', 'shadow-lg', 'shadow-teal-500/25');
-                btn.classList.add('bg-slate-100', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400');
+                btn.classList.remove('bg-primary', 'dark:bg-accent', 'text-white');
+                btn.classList.add('bg-border-light', 'dark:bg-border-light-dark', 'text-text-secondary', 'dark:text-text-secondary-dark');
             }
         });
 
@@ -326,24 +243,18 @@ export class PortfolioView {
                 }, 50);
             } else {
                 card.style.opacity = '0';
-                card.style.transform = 'translateY(10px)';
+                card.style.transform = 'translateY(8px)';
                 setTimeout(() => card.classList.add('hidden'), 200);
             }
         });
     }
 
-    /**
-     * Refill contact fields dynamically on Preset click.
-     * @param {string} presetType - 'internship' | 'collab' | 'hello'
-     * @param {object} profile - contact data
-     */
     updateContactPreset(presetType, profile) {
         const subjectEl = document.getElementById('contact-subject');
         const messageEl = document.getElementById('contact-message');
         
         if (!subjectEl || !messageEl) return;
         
-        // Define texts
         let subject = '';
         let message = '';
         
@@ -355,25 +266,22 @@ export class PortfolioView {
             message = `Hi Christian,\n\nI have a project idea and would love to collaborate with you. Let me know if you are open to discuss web apps or GUI integrations!`;
         } else if (presetType === 'hello') {
             subject = 'Saying Hello!';
-            message = `Hi Christian,\n\nJust stumbled upon your beautiful MVC Portfolio website. Great UI/UX design! Wishing you all the best with your BSCS degree. Let's stay in touch!`;
+            message = `Hi Christian,\n\nJust stumbled upon your beautiful MVC Portfolio website. Great design! Wishing you all the best with your BSCS degree. Let's stay in touch!`;
         }
 
-        // Toggle Preset Card Highlights
         this.contactPresetButtons.forEach(btn => {
             const cardPreset = btn.getAttribute('data-preset');
             if (cardPreset === presetType) {
-                btn.classList.add('border-teal-500', 'bg-teal-500/10', 'scale-[1.02]');
-                btn.classList.remove('border-slate-200/60', 'dark:border-slate-800/60');
+                btn.classList.add('border-accent', 'bg-accent/5');
+                btn.classList.remove('border-border', 'dark:border-border-dark');
             } else {
-                btn.classList.remove('border-teal-500', 'bg-teal-500/10', 'scale-[1.02]');
-                btn.classList.add('border-slate-200/60', 'dark:border-slate-800/60');
+                btn.classList.remove('border-accent', 'bg-accent/5');
+                btn.classList.add('border-border', 'dark:border-border-dark');
             }
         });
 
-        // Set inputs
         subjectEl.value = subject;
         
-        // Simulate organic keyboard typing animation for the message field! (UX PRO MAX SPEC)
         messageEl.value = '';
         let index = 0;
         clearInterval(this.typingInterval);
@@ -384,7 +292,6 @@ export class PortfolioView {
             if (index < message.length) {
                 messageEl.value += message[index];
                 index++;
-                // Play tiny tick click sound every 4 characters to sound like a keyboard typing
                 if (index % 4 === 0) {
                     this._playSFX('hover');
                 }
@@ -395,10 +302,6 @@ export class PortfolioView {
         }, 12);
     }
 
-    /**
-     * Scroll smoothly to target element.
-     * @param {string} targetId 
-     */
     scrollToSection(targetId) {
         this._playSFX('click');
         
@@ -488,7 +391,6 @@ export class PortfolioView {
     }
 
     bindCertsFilter(handler) {
-        // Category Buttons
         this.certsFilterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 const category = btn.getAttribute('data-category');
@@ -497,11 +399,10 @@ export class PortfolioView {
             });
         });
 
-        // Search Input Trigger
         if (this.certsSearchInput) {
             this.certsSearchInput.addEventListener('input', (e) => {
                 const searchVal = e.target.value.toLowerCase().trim();
-                const activeBtn = document.querySelector('.certs-filter-btn.bg-teal-600');
+                const activeBtn = document.querySelector('.certs-filter-btn.bg-primary, .certs-filter-btn.dark\\:bg-accent');
                 const activeCat = activeBtn ? activeBtn.getAttribute('data-category') : 'All';
                 handler(activeCat, searchVal);
             });
@@ -542,11 +443,11 @@ export class PortfolioView {
         if (!this.header) return;
         window.addEventListener('scroll', () => {
             if (window.scrollY > 20) {
-                this.header.classList.remove('bg-transparent', 'py-4');
-                this.header.classList.add('bg-[#020817]/80', 'light:bg-white/80', 'backdrop-blur-xl', 'border-b', 'border-slate-200/10', 'light:border-slate-200', 'shadow-lg', 'shadow-black/20', 'py-3');
+                this.header.classList.remove('bg-transparent', 'py-5');
+                this.header.classList.add('bg-bg/90', 'dark:bg-bg-dark/90', 'backdrop-blur-sm', 'border-b', 'border-border', 'dark:border-border-dark', 'py-3');
             } else {
-                this.header.classList.add('bg-transparent', 'py-4');
-                this.header.classList.remove('bg-[#020817]/80', 'light:bg-white/80', 'backdrop-blur-xl', 'border-b', 'border-slate-200/10', 'light:border-slate-200', 'shadow-lg', 'shadow-black/20', 'py-3');
+                this.header.classList.add('bg-transparent', 'py-5');
+                this.header.classList.remove('bg-bg/90', 'dark:bg-bg-dark/90', 'backdrop-blur-sm', 'border-b', 'border-border', 'dark:border-border-dark', 'py-3');
             }
         });
     }
@@ -555,8 +456,13 @@ export class PortfolioView {
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.remove('opacity-0', 'translate-y-8');
-                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    const el = entry.target;
+                    const delay = el.dataset.delay || 0;
+                    
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, delay);
                 }
             });
         }, {
@@ -564,50 +470,22 @@ export class PortfolioView {
             rootMargin: "0px 0px -30px 0px"
         });
 
-        document.querySelectorAll('section').forEach(section => {
-            section.classList.add('transition-all', 'duration-1000', 'ease-out');
+        // Animate sections on scroll
+        document.querySelectorAll('section[data-animate]').forEach((section) => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
             revealObserver.observe(section);
         });
-    }
 
-    _initNavPillInteraction() {
-        this.desktopNavButtons.forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                this._positionNavPill(btn);
-                this._playSFX('hover');
-            });
+        // Animate cards with subtle stagger
+        document.querySelectorAll('[data-animate-card]').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(12px)';
+            card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            card.dataset.delay = String(index * 60);
+            revealObserver.observe(card);
         });
-
-        const navList = document.querySelector('header nav ul');
-        if (navList) {
-            navList.addEventListener('mouseleave', () => {
-                const activeBtn = Array.from(this.desktopNavButtons).find(btn => 
-                    btn.classList.contains('text-teal-600') || btn.classList.contains('dark:text-teal-400')
-                );
-                if (activeBtn) {
-                    this._positionNavPill(activeBtn);
-                } else {
-                    this._hideNavPill();
-                }
-            });
-        }
-    }
-
-    _positionNavPill(btn) {
-        if (!this.navPillActive) return;
-        const rect = btn.getBoundingClientRect();
-        const parentRect = btn.parentElement.parentElement.getBoundingClientRect();
-        
-        this.navPillActive.classList.remove('hidden');
-        this.navPillActive.style.left = `${rect.left - parentRect.left}px`;
-        this.navPillActive.style.width = `${rect.width}px`;
-        this.navPillActive.style.height = `${rect.height}px`;
-        this.navPillActive.style.opacity = '1';
-    }
-
-    _hideNavPill() {
-        if (!this.navPillActive) return;
-        this.navPillActive.style.opacity = '0';
     }
 
     _initTerminalTabs() {
@@ -616,16 +494,14 @@ export class PortfolioView {
                 const targetTab = e.currentTarget;
                 const tabName = targetTab.getAttribute('data-tab');
                 
-                // Toggle active styles on tabs
                 this.terminalTabs.forEach(t => {
-                    t.classList.remove('border-b-2', 'border-teal-500', 'bg-slate-800/40', 'text-slate-100');
-                    t.classList.add('text-slate-500', 'bg-slate-900/40');
+                    t.classList.remove('border-b-2', 'border-accent', 'text-gray-200');
+                    t.classList.add('text-gray-500');
                 });
                 
-                targetTab.classList.add('border-b-2', 'border-teal-500', 'bg-slate-800/40', 'text-slate-100');
-                targetTab.classList.remove('text-slate-500', 'bg-slate-900/40');
+                targetTab.classList.add('border-b-2', 'border-accent', 'text-gray-200');
+                targetTab.classList.remove('text-gray-500');
                 
-                // Switch visible console content panel
                 const codePanels = document.querySelectorAll('.terminal-code-panel');
                 codePanels.forEach(panel => {
                     if (panel.id === `code-${tabName}`) {
@@ -648,21 +524,19 @@ export class PortfolioView {
                 const previewSrc = targetBtn.getAttribute('data-preview');
                 const projectKey = targetBtn.getAttribute('data-project');
                 
-                // Update image preview src
                 const imgEl = document.getElementById(`preview-${projectKey}`);
                 if (imgEl) {
                     imgEl.src = previewSrc;
                 }
                 
-                // Toggle tab highlights for this specific project
                 const siblingBtns = document.querySelectorAll(`.project-tab-btn[data-project="${projectKey}"]`);
                 siblingBtns.forEach(b => {
-                    b.classList.remove('bg-teal-600', 'text-white');
-                    b.classList.add('bg-slate-800/80', 'light:bg-slate-200', 'text-slate-300', 'light:text-slate-700');
+                    b.classList.remove('bg-primary', 'dark:bg-gray-700', 'text-white');
+                    b.classList.add('bg-border-light', 'dark:bg-gray-800', 'text-text-secondary', 'dark:text-gray-400');
                 });
                 
-                targetBtn.classList.add('bg-teal-600', 'text-white');
-                targetBtn.classList.remove('bg-slate-800/80', 'light:bg-slate-200', 'text-slate-300', 'light:text-slate-700');
+                targetBtn.classList.add('bg-primary', 'dark:bg-gray-700', 'text-white');
+                targetBtn.classList.remove('bg-border-light', 'dark:bg-gray-800', 'text-text-secondary', 'dark:text-gray-400');
                 
                 this._playSFX('click');
             });
@@ -670,8 +544,7 @@ export class PortfolioView {
     }
 
     _initAudioTriggers() {
-        // Generic UI sound hooks for extreme UX polish
-        const interactiveElements = document.querySelectorAll('button, a, .glow-card, .contact-preset-card');
+        const interactiveElements = document.querySelectorAll('button, a, .card-hover, .contact-preset-card');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
                 if (el !== this.sfxToggleBtn) {
@@ -685,7 +558,6 @@ export class PortfolioView {
             });
         });
 
-        // Set up email composition listener
         const subjectEl = document.getElementById('contact-subject');
         const messageEl = document.getElementById('contact-message');
         if (subjectEl && messageEl) {
@@ -711,9 +583,6 @@ export class PortfolioView {
         this.contactSendBtn.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
     }
 
-    /**
-     * Audio Engine - Synthesizes retro-modern digital chimes and ticks on demand (zero assets required)
-     */
     _playSFX(type) {
         if (!this.sfxEnabled) return;
         
@@ -721,12 +590,10 @@ export class PortfolioView {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             if (!AudioContext) return;
             
-            // Re-use or instantiate audio context
             if (!this.audioCtx) {
                 this.audioCtx = new AudioContext();
             }
             
-            // Resume suspended context (browser standard for user gestures)
             if (this.audioCtx.state === 'suspended') {
                 this.audioCtx.resume();
             }
@@ -739,56 +606,44 @@ export class PortfolioView {
             gain.connect(ctx.destination);
             
             if (type === 'hover') {
-                // Highly subtle, soft, rapid digital click
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(950, ctx.currentTime);
                 osc.frequency.exponentialRampToValueAtTime(1250, ctx.currentTime + 0.05);
-                
                 gain.gain.setValueAtTime(0.008, ctx.currentTime);
                 gain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + 0.05);
-                
                 osc.start();
                 osc.stop(ctx.currentTime + 0.05);
             } else if (type === 'click') {
-                // Snappy, warm tech click
                 osc.type = 'triangle';
                 osc.frequency.setValueAtTime(550, ctx.currentTime);
                 osc.frequency.exponentialRampToValueAtTime(110, ctx.currentTime + 0.12);
-                
                 gain.gain.setValueAtTime(0.04, ctx.currentTime);
                 gain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + 0.12);
-                
                 osc.start();
                 osc.stop(ctx.currentTime + 0.12);
             } else if (type === 'success') {
-                // Elegant cascading synth chime
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
-                osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.06); // E5
-                osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.12); // G5
-                osc.frequency.exponentialRampToValueAtTime(1046.50, ctx.currentTime + 0.22); // C6
-                
+                osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.06);
+                osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.12);
+                osc.frequency.exponentialRampToValueAtTime(1046.50, ctx.currentTime + 0.22);
                 gain.gain.setValueAtTime(0.02, ctx.currentTime);
                 gain.gain.setValueAtTime(0.025, ctx.currentTime + 0.06);
                 gain.gain.setValueAtTime(0.03, ctx.currentTime + 0.12);
                 gain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + 0.28);
-                
                 osc.start();
                 osc.stop(ctx.currentTime + 0.28);
             } else if (type === 'toggle') {
-                // Elegant frequency sweep
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(320, ctx.currentTime);
                 osc.frequency.exponentialRampToValueAtTime(640, ctx.currentTime + 0.15);
-                
                 gain.gain.setValueAtTime(0.015, ctx.currentTime);
                 gain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + 0.15);
-                
                 osc.start();
                 osc.stop(ctx.currentTime + 0.15);
             }
         } catch (err) {
-            console.warn('Synthesizer blocked or unsupported in current browser state', err);
+            console.warn('Synthesizer blocked or unsupported', err);
         }
     }
 
@@ -796,45 +651,36 @@ export class PortfolioView {
 
     _createHeaderHTML(profile) {
         return `
-        <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-4 font-jakarta">
-            <nav class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between relative">
-                <!-- Glowing Logo -->
-                <button class="font-extrabold text-2xl tracking-tight bg-gradient-to-r from-teal-400 via-sky-400 to-blue-400 bg-clip-text text-transparent hover:opacity-85 transition-opacity duration-200 relative select-none">
+        <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-5 font-sans">
+            <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between relative">
+                <button class="font-serif font-bold text-2xl tracking-tight text-primary dark:text-white hover:text-accent transition-colors duration-200 select-none">
                     ${profile.logoText}
-                    <span class="absolute -right-3 -top-1 w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
                 </button>
                 
-                <!-- Desktop Nav Navigation Wrapper -->
-                <div class="hidden md:block relative px-1 py-1 rounded-xl bg-slate-950/20 border border-slate-200/5 light:border-slate-800/5 backdrop-blur-md">
-                    <!-- Sliding active pill background -->
-                    <div class="nav-pill-active hidden"></div>
-                    
-                    <ul class="flex items-center gap-1 relative z-10">
-                        <li><button class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition-colors duration-200">About</button></li>
-                        <li><button class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition-colors duration-200">Skills</button></li>
-                        <li><button class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition-colors duration-200">Projects</button></li>
-                        <li><button class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition-colors duration-200">Certifications</button></li>
-                        <li><button class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition-colors duration-200">Contact</button></li>
+                <div class="hidden md:block">
+                    <ul class="flex items-center gap-8">
+                        <li><button class="text-sm font-medium text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-colors duration-200">About</button></li>
+                        <li><button class="text-sm font-medium text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-colors duration-200">Skills</button></li>
+                        <li><button class="text-sm font-medium text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-colors duration-200">Projects</button></li>
+                        <li><button class="text-sm font-medium text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-colors duration-200">Certifications</button></li>
+                        <li><button class="text-sm font-medium text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-colors duration-200">Contact</button></li>
                     </ul>
                 </div>
                 
-                <div class="flex items-center gap-2 relative z-10">
-                    <!-- Synthesis SFX Audio Toggle -->
-                    <button aria-label="Toggle audio effects" class="p-2.5 rounded-xl border border-slate-200/10 light:border-slate-200 text-slate-400 hover:text-white hover:bg-slate-900/50 light:hover:bg-slate-100 transition-all duration-200 h-9 w-9 flex items-center justify-center">
+                <div class="flex items-center gap-3">
+                    <button aria-label="Toggle audio effects" class="p-2 rounded text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-colors duration-200 h-9 w-9 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-x" aria-hidden="true">
                             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="22" y1="9" x2="16" y2="15"></line><line x1="16" y1="9" x2="22" y2="15"></line>
                         </svg>
                     </button>
 
-                    <!-- Themes Switcher -->
-                    <button aria-label="Toggle dark mode" class="p-2.5 rounded-xl border border-slate-200/10 light:border-slate-200 text-slate-400 hover:text-white hover:bg-slate-900/50 light:hover:bg-slate-100 transition-all duration-200">
+                    <button aria-label="Toggle dark mode" class="p-2 rounded text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-colors duration-200">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon" aria-hidden="true">
                             <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path>
                         </svg>
                     </button>
                     
-                    <!-- Mobile Menu Hamburger -->
-                    <button class="md:hidden p-2.5 rounded-xl border border-slate-200/10 light:border-slate-200 hover:bg-slate-900/50 light:hover:bg-slate-100 text-slate-400 hover:text-white transition-colors duration-200" aria-label="Toggle menu">
+                    <button class="md:hidden p-2 rounded text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-colors duration-200" aria-label="Toggle menu">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true">
                             <path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path>
                         </svg>
@@ -847,144 +693,136 @@ export class PortfolioView {
 
     _createMobileMenuHTML(profile) {
         return `
-        <div id="mobile-menu" class="hidden fixed inset-0 top-16 z-40 bg-[#020817]/95 light:bg-white/95 backdrop-blur-xl md:hidden transition-all duration-300 border-t border-slate-200/10 light:border-slate-200">
-            <nav class="flex flex-col p-6 gap-3 font-jakarta">
-                <button data-target="about" class="mobile-nav-btn text-left py-3 text-lg font-bold text-slate-400 hover:text-white transition-all duration-200">About</button>
-                <button data-target="skills" class="mobile-nav-btn text-left py-3 text-lg font-bold text-slate-400 hover:text-white transition-all duration-200">Skills</button>
-                <button data-target="projects" class="mobile-nav-btn text-left py-3 text-lg font-bold text-slate-400 hover:text-white transition-all duration-200">Projects</button>
-                <button data-target="certifications" class="mobile-nav-btn text-left py-3 text-lg font-bold text-slate-400 hover:text-white transition-all duration-200">Certifications</button>
-                <button data-target="contact" class="mobile-nav-btn text-left py-3 text-lg font-bold text-slate-400 hover:text-white transition-all duration-200">Contact</button>
+        <div id="mobile-menu" class="hidden fixed inset-0 top-16 z-40 bg-bg/95 dark:bg-bg-dark/95 backdrop-blur-sm md:hidden transition-all duration-300 border-b border-border dark:border-border-dark">
+            <nav class="flex flex-col p-6 gap-3 font-sans">
+                <button data-target="about" class="mobile-nav-btn text-left py-3 text-lg font-medium text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-all duration-200">About</button>
+                <button data-target="skills" class="mobile-nav-btn text-left py-3 text-lg font-medium text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-all duration-200">Skills</button>
+                <button data-target="projects" class="mobile-nav-btn text-left py-3 text-lg font-medium text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-all duration-200">Projects</button>
+                <button data-target="certifications" class="mobile-nav-btn text-left py-3 text-lg font-medium text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-all duration-200">Certifications</button>
+                <button data-target="contact" class="mobile-nav-btn text-left py-3 text-lg font-medium text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-all duration-200">Contact</button>
             </nav>
         </div>
         `;
     }
 
     _createHeroHTML(profile) {
-        const statsHTML = profile.stats.map((s, idx) => {
-            const glowColors = ["group-hover:text-teal-400", "group-hover:text-blue-400", "group-hover:text-cyan-400"];
+        const statsHTML = profile.stats.map((s) => {
             return `
-            <div class="px-6 py-4 rounded-2xl glass-panel border border-slate-200/5 hover:border-slate-200/15 hover:scale-105 transition-all duration-300 text-center flex-1 min-w-[120px] group cursor-default">
-                <p class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-teal-400 to-sky-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">${s.value}</p>
-                <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 font-semibold uppercase tracking-wider ${glowColors[idx]} transition-colors duration-200">${s.label}</p>
+            <div class="px-6 py-4 border border-border dark:border-border-dark bg-surface dark:bg-surface-dark text-center flex-1 min-w-[120px] cursor-default">
+                <p class="text-3xl sm:text-4xl font-serif font-bold text-accent">${s.value}</p>
+                <p class="text-[10px] text-text-secondary dark:text-text-secondary-dark mt-1 font-medium uppercase tracking-widest">${s.label}</p>
             </div>
         `}).join('');
 
         return `
-        <section class="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden z-10 pt-20">
-            <!-- Content Grid Layout -->
-            <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-center">
+        <section class="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden z-10 pt-20">
+            <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-12 gap-16 items-center">
                 
-                <!-- Left Hand Text & Intro Block -->
-                <div class="lg:col-span-6 space-y-6 text-left relative">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-semibold tracking-wide">
-                        <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-green-500 absolute left-[19px]"></span>
-                        ${profile.status}
+                <div class="lg:col-span-7 space-y-8 text-left">
+                    <div class="space-y-2">
+                        <p class="text-sm font-medium text-accent uppercase tracking-widest">Portfolio</p>
+                        <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif font-bold tracking-tight leading-[1.1] text-primary dark:text-white">
+                            ${profile.firstName}
+                        </h1>
+                        <h2 class="text-4xl sm:text-5xl md:text-6xl font-serif font-bold tracking-tight leading-[1.1] text-primary dark:text-white">
+                            ${profile.lastName}
+                        </h2>
                     </div>
                     
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight font-jakarta">
-                        Hi, I'm <span class="bg-gradient-to-r from-teal-400 via-sky-400 to-blue-400 bg-clip-text text-transparent glow-text-teal">${profile.firstName}</span>
-                    </h1>
-                    
-                    <p class="text-lg sm:text-xl text-slate-300 light:text-slate-700 font-semibold font-jakarta leading-relaxed">
+                    <p class="text-lg text-text-secondary dark:text-text-secondary-dark font-medium leading-relaxed max-w-xl">
                         ${profile.title}
                     </p>
                     
-                    <p class="text-base text-slate-400 light:text-slate-600 max-w-xl leading-relaxed font-jakarta">
+                    <p class="text-base text-text-secondary dark:text-text-secondary-dark leading-relaxed max-w-xl">
                         ${profile.description}
                     </p>
                     
-                    <!-- Call To Action Panel -->
-                    <div class="flex flex-wrap gap-4 pt-2 font-jakarta">
-                        <button class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold shadow-lg shadow-teal-500/30 transition-all duration-300 hover:scale-105 active:scale-95 group/btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal group-hover/btn:translate-x-1 transition-transform"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button class="inline-flex items-center gap-2 px-6 py-3 bg-primary dark:bg-white text-white dark:text-primary font-medium text-sm hover:bg-accent hover:text-white transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
                             View Projects
                         </button>
                         
-                        <button class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/50 light:bg-white border border-slate-200/10 light:border-slate-200 hover:border-teal-500/50 hover:bg-teal-500/5 light:hover:bg-slate-100 font-bold transition-all duration-300 hover:scale-105 active:scale-95">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.99 5.7a1.94 1.94 0 0 1-2.02 0L2 7"></path></svg>
+                        <button class="inline-flex items-center gap-2 px-6 py-3 border border-primary dark:border-white text-primary dark:text-white font-medium text-sm hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.99 5.7a1.94 1.94 0 0 1-2.02 0L2 7"></path></svg>
                             Contact Me
                         </button>
                         
-                        <a href="${profile.resumeUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-slate-200/10 light:border-slate-200 hover:border-cyan-500/50 hover:bg-cyan-500/5 light:hover:bg-slate-100 font-bold transition-all duration-300 hover:scale-105 active:scale-95">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-down"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M12 18v-6"></path><path d="m9 15 3 3 3-3"></path></svg>
+                        <a href="${profile.resumeUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 border border-border dark:border-border-dark text-text-secondary dark:text-text-secondary-dark font-medium text-sm hover:border-accent hover:text-accent transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-down"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M12 18v-6"></path><path d="m9 15 3 3 3-3"></path></svg>
                             Resume
                         </a>
                     </div>
                 </div>
 
-                <!-- Right Hand Gorgeous Shell Terminal Console (UX PRO MAX SPEC) -->
-                <div class="lg:col-span-6 w-full max-w-lg mx-auto">
-                    <div class="w-full rounded-2xl glass-panel border border-slate-200/10 overflow-hidden shadow-2xl shadow-black/80 hover:shadow-teal-500/10 hover:border-slate-200/25 transition-all duration-300 group/terminal">
-                        
-                        <!-- Console Header -->
-                        <div class="bg-slate-950/80 px-4 py-3 flex items-center justify-between border-b border-slate-200/5">
+                <div class="lg:col-span-5 w-full max-w-lg mx-auto">
+                    <div class="w-full border border-border dark:border-border-dark bg-surface dark:bg-surface-dark overflow-hidden">
+                        <div class="bg-primary dark:bg-gray-800 px-4 py-3 flex items-center justify-between">
                             <div class="flex items-center gap-1.5 select-none">
-                                <span class="w-3 h-3 rounded-full bg-[#ef4444] shadow-md shadow-[#ef4444]/30 cursor-pointer"></span>
-                                <span class="w-3 h-3 rounded-full bg-[#eab308] shadow-md shadow-[#eab308]/30 cursor-pointer"></span>
-                                <span class="w-3 h-3 rounded-full bg-[#22c55e] shadow-md shadow-[#22c55e]/30 cursor-pointer"></span>
+                                <span class="w-3 h-3 rounded-full bg-[#ef4444]"></span>
+                                <span class="w-3 h-3 rounded-full bg-[#eab308]"></span>
+                                <span class="w-3 h-3 rounded-full bg-[#22c55e]"></span>
                             </div>
                             
-                            <!-- Interactive Tabs -->
                             <div class="flex gap-2">
-                                <button data-tab="profile" class="terminal-tab px-3 py-1 rounded-md text-[10px] font-bold font-mono transition-all duration-200 border-b-2 border-teal-500 bg-slate-800/40 text-slate-100 flex items-center gap-1.5">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>portfolio.sh
+                                <button data-tab="profile" class="terminal-tab px-3 py-1 text-[10px] font-bold font-mono transition-all duration-200 bg-gray-700 dark:bg-gray-600 text-gray-200 flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>portfolio.sh
                                 </button>
-                                <button data-tab="logs" class="terminal-tab px-3 py-1 rounded-md text-[10px] font-bold font-mono transition-all duration-200 text-slate-500 bg-slate-900/40 hover:text-slate-300 flex items-center gap-1.5">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>system.log
+                                <button data-tab="logs" class="terminal-tab px-3 py-1 text-[10px] font-bold font-mono transition-all duration-200 text-gray-400 hover:text-gray-200 flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gray-500"></span>system.log
                                 </button>
-                                <button data-tab="json" class="terminal-tab px-3 py-1 rounded-md text-[10px] font-bold font-mono transition-all duration-200 text-slate-500 bg-slate-900/40 hover:text-slate-300 flex items-center gap-1.5">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>cv.json
+                                <button data-tab="json" class="terminal-tab px-3 py-1 text-[10px] font-bold font-mono transition-all duration-200 text-gray-400 hover:text-gray-200 flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gray-500"></span>cv.json
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Console Code View Area -->
-                        <div class="p-6 h-[260px] overflow-y-auto font-mono text-[11px] sm:text-xs leading-relaxed text-slate-300 bg-slate-950/40">
+                        <div class="p-6 h-[260px] overflow-y-auto font-mono text-[10px] sm:text-xs leading-relaxed text-gray-400 bg-gray-900 dark:bg-black">
                             
-                            <!-- Tab 1: portfolio.sh -->
                             <div id="code-profile" class="terminal-code-panel space-y-3">
                                 <div>
-                                    <span class="text-cyan-400">guest@cvsu-imus:~$</span> <span class="text-teal-400 animate-pulse">./view-skills.sh</span>
+                                    <span class="text-gray-500">guest@cvsu-imus:~$</span> <span class="text-accent">./view-skills.sh</span>
                                 </div>
-                                <div class="text-slate-500 text-[10px]">[INFO] Fetching skill matrix... Success.</div>
-                                <div class="space-y-1.5 text-slate-400 pl-4 border-l-2 border-teal-500/20">
-                                    <p>⚡ <span class="text-slate-200 font-bold">Programming:</span> Java, Python, C++, JavaScript</p>
-                                    <p>🌐 <span class="text-slate-200 font-bold">Web Stack:</span> HTML5, CSS3, PHP, Apache (XAMPP)</p>
-                                    <p>💾 <span class="text-slate-200 font-bold">Databases:</span> MySQL Workbench, SQL, CRUD Engine</p>
-                                    <p>⚙️ <span class="text-slate-200 font-bold">Frameworks:</span> Java Swing, Tkinter (GUI), Botpress AI</p>
+                                <div class="text-gray-600 text-[10px]">[INFO] Fetching skill matrix... Success.</div>
+                                <div class="space-y-1.5 text-gray-400 pl-4 border-l border-gray-700">
+                                    <p><span class="text-gray-200 font-bold">Programming:</span> Java, Python, C++, JavaScript, TypeScript</p>
+                                    <p><span class="text-gray-200 font-bold">Web Stack:</span> HTML, CSS, PHP, Next.js, Node.js</p>
+                                    <p><span class="text-gray-200 font-bold">Databases:</span> MySQL, SQLite, Prisma ORM, JSON</p>
+                                    <p><span class="text-gray-200 font-bold">Frameworks:</span> Java Swing, Tkinter, Botpress, Chart.js</p>
                                 </div>
                                 <div>
-                                    <span class="text-cyan-400">guest@cvsu-imus:~$</span> <span class="console-cursor border-r-2 border-slate-300 pr-[1px] font-bold"></span>
+                                    <span class="text-gray-500">guest@cvsu-imus:~$</span> <span class="console-cursor border-r border-gray-400 pr-[1px] font-bold"></span>
                                 </div>
                             </div>
 
-                            <!-- Tab 2: system.log -->
-                            <div id="code-logs" class="terminal-code-panel space-y-1 text-slate-400 hidden">
-                                <p class="text-emerald-500">[2026-05-29] Booting portfolio system v3.1...</p>
+                            <div id="code-logs" class="terminal-code-panel space-y-1 text-gray-400 hidden">
+                                <p class="text-green-500">[2026-05-29] Booting portfolio system v3.1...</p>
                                 <p>[INFO] Instantiating MVC Pattern Controllers...</p>
                                 <p>[INFO] Hydrating data model from config files...</p>
-                                <p class="text-teal-400">[INFO] Location: Cavite State University - Imus Campus</p>
-                                <p class="text-cyan-400">[INFO] Academic Status: Expected Graduation 2027</p>
+                                <p class="text-accent">[INFO] Location: Cavite State University - Imus Campus</p>
+                                <p>[INFO] Academic Status: Expected Graduation 2027</p>
                                 <p>[INFO] Network status: Connected to CvSU Campus Wifi</p>
-                                <p class="text-yellow-400">[WARN] Intern status: Open for internships & projects.</p>
-                                <p class="text-slate-500">[DEBUG] Audio Synthesis context: Active & Nominal</p>
-                                <p class="text-emerald-500">[SUCCESS] Redesign complete. Portfolio is fully active.</p>
+                                <p class="text-yellow-500">[WARN] Intern status: Open for internships & projects.</p>
+                                <p class="text-gray-500">[DEBUG] Audio Synthesis context: Active & Nominal</p>
+                                <p class="text-green-500">[SUCCESS] Redesign complete. Portfolio is fully active.</p>
                             </div>
 
-                            <!-- Tab 3: cv.json -->
-                            <div id="code-json" class="terminal-code-panel text-slate-400 hidden">
-<pre class="text-teal-300">{
-  <span class="text-cyan-400">"developer"</span>: "${profile.fullName}",
-  <span class="text-cyan-400">"education"</span>: {
-    <span class="text-cyan-400">"university"</span>: "Cavite State University",
-    <span class="text-cyan-400">"degree"</span>: "BS Computer Science"
+                            <div id="code-json" class="terminal-code-panel text-gray-400 hidden">
+<pre class="text-gray-300">{
+  <span class="text-accent">"developer"</span>: "${profile.fullName}",
+  <span class="text-accent">"education"</span>: {
+    <span class="text-accent">"university"</span>: "Cavite State University",
+    <span class="text-accent">"degree"</span>: "BS Computer Science"
   },
-  <span class="text-cyan-400">"active_interests"</span>: [
+  <span class="text-accent">"tech_stack"</span>: [
+    "Next.js 16", "TypeScript", "Prisma ORM",
+    "Node.js", "SQLite", "Java", "Python"
+  ],
+  <span class="text-accent">"active_interests"</span>: [
     "Software Systems", "Web Apps",
     "Database Architectures", "Cybersecurity"
   ],
-  <span class="text-cyan-400">"open_to_work"</span>: <span class="text-emerald-400">true</span>
+  <span class="text-accent">"open_to_work"</span>: <span class="text-green-400">true</span>
 }</pre>
                             </div>
                         </div>
@@ -994,14 +832,12 @@ export class PortfolioView {
 
             </div>
 
-            <!-- Stats Bar Section -->
-            <div class="max-w-6xl mx-auto w-full flex flex-wrap gap-4 sm:gap-6 mt-16 pt-10 border-t border-slate-200/5 light:border-slate-200 font-jakarta">
+            <div class="max-w-6xl mx-auto w-full flex flex-wrap gap-4 sm:gap-6 mt-16 pt-10 border-t border-border dark:border-border-dark font-sans">
                 ${statsHTML}
             </div>
 
-            <!-- Scrolling bounce indicator -->
-            <button class="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-500 hover:text-teal-400 transition-colors animate-float" aria-label="Scroll down">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+            <button class="absolute bottom-8 left-1/2 -translate-x-1/2 text-text-secondary dark:text-text-secondary-dark hover:text-accent transition-colors" aria-label="Scroll down">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
             </button>
         </section>
         `;
@@ -1013,11 +849,11 @@ export class PortfolioView {
         const widgetsHTML = about.widgets.map(w => {
             if (w.type === 'interests') {
                 const tagsHTML = w.value.map(tag => `
-                    <span class="px-3 py-1.5 text-xs font-bold rounded-xl bg-teal-500/5 border border-teal-500/15 text-teal-400 group-hover/widget:border-teal-500/40 group-hover/widget:scale-105 transition-all duration-300 font-jakarta">${tag}</span>
+                    <span class="px-3 py-1.5 text-xs font-medium border border-border dark:border-border-dark text-text-secondary dark:text-text-secondary-dark">${tag}</span>
                 `).join('');
                 return `
-                <div class="rounded-2xl border border-slate-200/5 light:border-slate-200 p-6 bg-slate-900/10 backdrop-blur-sm hover:border-slate-200/15 hover:shadow-lg transition-all duration-300 group/widget">
-                    <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 mb-3 font-mono">⚡ ${w.label}</p>
+                <div class="border border-border dark:border-border-dark p-6 bg-surface dark:bg-surface-dark">
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-text-secondary dark:text-text-secondary-dark mb-3">${w.label}</p>
                     <div class="flex flex-wrap gap-2">
                         ${tagsHTML}
                     </div>
@@ -1025,13 +861,13 @@ export class PortfolioView {
                 `;
             } else {
                 return `
-                <div class="rounded-2xl border border-slate-200/5 light:border-slate-200 p-6 bg-slate-900/10 backdrop-blur-sm flex items-start gap-4 hover:border-teal-500/20 hover:shadow-lg transition-all duration-300 group/widget">
-                    <div class="mt-0.5 p-2 rounded-xl bg-teal-500/5 text-teal-400 border border-teal-500/10 group-hover/widget:bg-teal-500/10 transition-colors duration-200">
+                <div class="border border-border dark:border-border-dark p-6 bg-surface dark:bg-surface-dark flex items-start gap-4">
+                    <div class="mt-0.5 text-accent">
                         ${w.icon}
                     </div>
                     <div>
-                        <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 mb-1 font-mono">${w.label}</p>
-                        <p class="font-bold text-slate-300 light:text-slate-700 text-sm leading-snug">${w.value}</p>
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-text-secondary dark:text-text-secondary-dark mb-1">${w.label}</p>
+                        <p class="font-medium text-primary dark:text-white text-sm leading-snug">${w.value}</p>
                     </div>
                 </div>
                 `;
@@ -1039,22 +875,19 @@ export class PortfolioView {
         }).join('');
 
         return `
-        <section id="about" class="py-28 px-4 opacity-0 translate-y-8 scroll-mt-20">
+        <section id="about" class="py-24 px-6 scroll-mt-20" data-animate>
             <div class="max-w-5xl mx-auto">
                 <div class="text-left mb-12">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/5 border border-teal-500/15 text-teal-400 text-xs font-bold uppercase tracking-widest mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>
-                        About Me
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">Student Profile</h2>
+                    <p class="text-xs font-bold text-accent uppercase tracking-widest mb-3">About</p>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold tracking-tight leading-tight text-primary dark:text-white">Student Profile</h2>
                 </div>
                 
                 <div class="grid md:grid-cols-2 gap-12 items-start">
-                    <div class="space-y-6 text-slate-400 light:text-slate-600 text-base leading-relaxed font-jakarta">
+                    <div class="space-y-6 text-text-secondary dark:text-text-secondary-dark text-base leading-relaxed">
                         ${paragraphsHTML}
                     </div>
                     
-                    <div class="space-y-4 font-jakarta">
+                    <div class="space-y-4">
                         ${widgetsHTML}
                     </div>
                 </div>
@@ -1064,50 +897,24 @@ export class PortfolioView {
     }
 
     _createSkillsHTML(skills) {
-        // Build filters
         const tabs = ["All", "Programming", "Web", "Databases", "Frameworks", "Tools", "Concepts"];
         const filterTabsHTML = tabs.map(t => {
             const isAll = t === "All";
             const btnClass = isAll 
-                ? "bg-teal-600 text-white shadow-lg shadow-teal-500/25" 
-                : "bg-slate-100 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 hover:text-white border border-slate-200/50 dark:border-slate-800/50";
-            return `<button data-category="${t}" class="skills-filter-btn px-4 py-2 text-xs font-bold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 ${btnClass}">${t}</button>`;
+                ? "bg-primary dark:bg-accent text-white" 
+                : "bg-border-light dark:bg-border-light-dark text-text-secondary dark:text-text-secondary-dark border border-border dark:border-border-dark";
+            return `<button data-category="${t}" class="skills-filter-btn px-4 py-2 text-xs font-medium transition-colors duration-200 ${btnClass}">${t}</button>`;
         }).join('');
 
-        // Build list cards
         const categoriesHTML = skills.map(cat => {
             const tagsHTML = cat.items.map(item => `
-                <span class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-950/20 light:bg-slate-100 text-slate-400 light:text-slate-600 border border-slate-200/5 light:border-slate-200 group-hover:border-teal-500/30 group-hover:text-teal-400 transition-all duration-300 cursor-default select-none">${item}</span>
+                <span class="px-2.5 py-1.5 text-xs font-medium border border-border dark:border-border-dark text-text-secondary dark:text-text-secondary-dark">${item}</span>
             `).join('');
 
-            // Customize glowing HSL accent colors for card visual tags
-            let glowBorder = "hover:border-teal-500/20 from-teal-600/5 to-transparent";
-            let tagBadge = "🛡️";
-            
-            if (cat.category.toLowerCase().includes("web")) {
-                glowBorder = "hover:border-orange-500/20 from-orange-600/5 to-transparent";
-                tagBadge = "🌐";
-            } else if (cat.category.toLowerCase().includes("database")) {
-                glowBorder = "hover:border-emerald-500/20 from-emerald-600/5 to-transparent";
-                tagBadge = "🗄️";
-            } else if (cat.category.toLowerCase().includes("framework")) {
-                glowBorder = "hover:border-violet-500/20 from-blue-600/5 to-transparent";
-                tagBadge = "📦";
-            } else if (cat.category.toLowerCase().includes("tool")) {
-                glowBorder = "hover:border-rose-500/20 from-rose-600/5 to-transparent";
-                tagBadge = "🔧";
-            } else if (cat.category.toLowerCase().includes("concept")) {
-                glowBorder = "hover:border-cyan-500/20 from-cyan-600/5 to-transparent";
-                tagBadge = "🧠";
-            } else {
-                tagBadge = "💻";
-            }
-
             return `
-            <div data-category="${cat.category}" class="skill-category-card rounded-2xl border border-slate-200/5 light:border-slate-200 bg-gradient-to-br ${glowBorder} bg-slate-900/10 backdrop-blur-sm p-6 hover:shadow-xl hover:shadow-teal-500/5 hover:-translate-y-1.5 group transition-all duration-300">
-                <div class="flex items-center gap-3.5 mb-5 select-none">
-                    <span class="text-2xl group-hover:scale-115 transition-transform duration-300">${tagBadge}</span>
-                    <h3 class="font-extrabold text-sm text-slate-300 light:text-slate-700 tracking-wide">${cat.category}</h3>
+            <div data-category="${cat.category}" class="skill-category-card border border-border dark:border-border-dark bg-surface dark:bg-surface-dark p-6 transition-all duration-300">
+                <div class="mb-5">
+                    <h3 class="font-serif font-bold text-sm text-primary dark:text-white tracking-wide">${cat.category}</h3>
                 </div>
                 <div class="flex flex-wrap gap-2.5">
                     ${tagsHTML}
@@ -1117,27 +924,21 @@ export class PortfolioView {
         }).join('');
 
         return `
-        <section id="skills" class="py-28 px-4 opacity-0 translate-y-8 scroll-mt-20">
+        <section id="skills" class="py-24 px-6 scroll-mt-20" data-animate>
             <div class="max-w-5xl mx-auto">
                 
-                <!-- Section Header with filters -->
                 <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                     <div class="text-left">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/5 border border-teal-500/15 text-teal-400 text-xs font-bold uppercase tracking-widest mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                            Technical Skills
-                        </div>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Capabilities Matrix</h2>
+                        <p class="text-xs font-bold text-accent uppercase tracking-widest mb-3">Skills</p>
+                        <h2 class="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-primary dark:text-white">Capabilities Matrix</h2>
                     </div>
                     
-                    <!-- Filters Deck -->
-                    <div class="flex flex-wrap gap-2 font-jakarta">
+                    <div class="flex flex-wrap gap-2">
                         ${filterTabsHTML}
                     </div>
                 </div>
                 
-                <!-- Grid layout of Categories -->
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 font-jakarta">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     ${categoriesHTML}
                 </div>
             </div>
@@ -1146,209 +947,205 @@ export class PortfolioView {
     }
 
     _createProjectsHTML(projects) {
-        // Generate Mockups matching each specific project architecture (Safari web browser mockup vs Desktop app windows)
         const cardsHTML = projects.map(proj => {
             const bulletsHTML = proj.bullets.map(b => `
-                <li class="flex items-center gap-2.5 text-xs text-slate-400 light:text-slate-500 leading-snug">
-                    <span class="w-1.5 h-1.5 rounded-full bg-teal-500 flex-shrink-0 animate-pulse"></span>
+                <li class="flex items-center gap-2.5 text-xs text-text-secondary dark:text-text-secondary-dark leading-snug">
+                    <span class="w-1.5 h-1.5 bg-accent flex-shrink-0"></span>
                     ${b}
                 </li>
             `).join('');
 
             const tagsHTML = proj.tags.map(t => `
-                <span class="px-2.5 py-1 text-[10px] font-bold rounded-lg border bg-teal-500/5 text-teal-400 border-teal-500/15 group-hover:border-teal-500/30 transition-colors">${t}</span>
+                <span class="px-2.5 py-1 text-[10px] font-medium border border-border dark:border-border-dark text-text-secondary dark:text-text-secondary-dark">${t}</span>
             `).join('');
 
             let mockUpHTML = "";
             const titleLower = proj.title.toLowerCase();
             
-            // 1. SmartQueue (Web Browser Mockup)
-            if (titleLower.includes("smartqueue")) {
+            if (titleLower.includes("dcs-sfms")) {
                 mockUpHTML = `
-                <div class="browser-mockup relative">
-                    <div class="browser-header">
-                        <div class="browser-dots select-none">
-                            <span class="browser-dot dot-red"></span><span class="browser-dot dot-yellow"></span><span class="browser-dot dot-green"></span>
+                <div class="border border-border dark:border-border-dark overflow-hidden bg-surface dark:bg-surface-dark">
+                    <div class="bg-primary dark:bg-gray-800 px-4 py-2 flex items-center justify-between">
+                        <div class="flex items-center gap-1.5 select-none">
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#eab308]"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#22c55e]"></span>
                         </div>
-                        <div class="browser-address-bar select-none">https://github.com/CJGR00/SmartQueue</div>
+                        <span class="text-[10px] text-gray-400 font-mono">DCS-SFMS</span>
                     </div>
-                    <!-- Mockup Tab Navigation -->
-                    <div class="bg-slate-905/60 light:bg-slate-100 px-4 py-2 border-b border-slate-200/5 light:border-slate-200 flex flex-wrap gap-1.5 select-none z-20 relative">
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-teal-600 text-white"
+                    <div class="bg-gray-100 dark:bg-gray-900 p-0 h-[220px] overflow-hidden flex items-center justify-center">
+                        <img id="preview-dcs-sfms" src="pic/DCS-SFMS/landing.png" class="w-full h-full object-cover object-top" alt="DCS-SFMS Landing Page">
+                    </div>
+                </div>
+                `;
+            } else if (titleLower.includes("smartqueue")) {
+                mockUpHTML = `
+                <div class="border border-border dark:border-border-dark overflow-hidden bg-surface dark:bg-surface-dark">
+                    <div class="bg-primary dark:bg-gray-800 px-4 py-2 flex items-center justify-between">
+                        <div class="flex items-center gap-1.5 select-none">
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#eab308]"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#22c55e]"></span>
+                        </div>
+                        <span class="text-[10px] text-gray-400 font-mono">SmartQueue</span>
+                    </div>
+                    <div class="bg-border-light dark:bg-gray-700 px-4 py-2 border-b border-border dark:border-border-dark flex flex-wrap gap-1.5 select-none">
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-primary dark:bg-gray-600 text-white"
                                 data-preview="pic/SMARTQUEUE/studentdashboard.PNG"
                                 data-project="smartqueue">
                             Student Dash
                         </button>
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700/80"
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-border-light dark:bg-gray-700 text-text-secondary dark:text-gray-400"
                                 data-preview="pic/SMARTQUEUE/registrar dashboard.PNG"
                                 data-project="smartqueue">
                             Registrar Dash
                         </button>
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700/80"
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-border-light dark:bg-gray-700 text-text-secondary dark:text-gray-400"
                                 data-preview="pic/SMARTQUEUE/chatbot.PNG"
                                 data-project="smartqueue">
                             AI Chatbot
                         </button>
                     </div>
-                    <!-- Screenshot Container -->
-                    <div class="browser-content bg-[#0c0a1c] p-0 h-[220px] overflow-hidden flex items-center justify-center relative">
-                        <img id="preview-smartqueue" src="pic/SMARTQUEUE/studentdashboard.PNG" class="w-full h-full object-cover object-top hover:scale-[1.03] transition-transform duration-500" alt="SmartQueue Screenshot">
+                    <div class="bg-gray-100 dark:bg-gray-900 p-0 h-[220px] overflow-hidden flex items-center justify-center">
+                        <img id="preview-smartqueue" src="pic/SMARTQUEUE/studentdashboard.PNG" class="w-full h-full object-cover object-top" alt="SmartQueue Screenshot">
                     </div>
                 </div>
                 `;
-            } 
-            // 2. RentaReady (macOS Desktop Mockup)
-            else if (titleLower.includes("rentaready")) {
+            } else if (titleLower.includes("rentaready")) {
                 mockUpHTML = `
-                <div class="desktop-mockup relative">
-                    <div class="desktop-header select-none">
-                        <div class="flex items-center gap-1.5">
-                            <span class="browser-dot dot-red"></span><span class="browser-dot dot-yellow"></span><span class="browser-dot dot-green"></span>
+                <div class="border border-border dark:border-border-dark overflow-hidden bg-surface dark:bg-surface-dark">
+                    <div class="bg-primary dark:bg-gray-800 px-4 py-2 flex items-center justify-between">
+                        <div class="flex items-center gap-1.5 select-none">
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#eab308]"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#22c55e]"></span>
                         </div>
-                        <span class="desktop-title">RentaReady Java Client (JDBC v1.0)</span>
-                        <span class="text-[10px] text-slate-600 font-bold font-mono">✖</span>
+                        <span class="text-[10px] text-gray-400 font-mono">RentaReady</span>
                     </div>
-                    <!-- Mockup Tab Navigation -->
-                    <div class="bg-slate-950/60 light:bg-slate-100 px-4 py-2 border-b border-slate-200/5 light:border-slate-200 flex flex-wrap gap-1.5 select-none z-20 relative">
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-teal-600 text-white"
+                    <div class="bg-border-light dark:bg-gray-700 px-4 py-2 border-b border-border dark:border-border-dark flex flex-wrap gap-1.5 select-none">
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-primary dark:bg-gray-600 text-white"
                                 data-preview="pic/VEHICLE RENTA/admin dashboard.PNG"
                                 data-project="rentaready">
                             Dashboard
                         </button>
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700/80"
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-border-light dark:bg-gray-700 text-text-secondary dark:text-gray-400"
                                 data-preview="pic/VEHICLE RENTA/admin vehicle management.PNG"
                                 data-project="rentaready">
                             Vehicles
                         </button>
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700/80"
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-border-light dark:bg-gray-700 text-text-secondary dark:text-gray-400"
                                 data-preview="pic/VEHICLE RENTA/vehicle rental.PNG"
                                 data-project="rentaready">
                             Rentals
                         </button>
                     </div>
-                    <!-- Screenshot Container -->
-                    <div class="desktop-body bg-[#0f172a] p-0 h-[220px] overflow-hidden flex items-center justify-center relative">
-                        <img id="preview-rentaready" src="pic/VEHICLE RENTA/admin dashboard.PNG" class="w-full h-full object-cover object-top hover:scale-[1.03] transition-transform duration-500" alt="RentaReady Screenshot">
+                    <div class="bg-gray-100 dark:bg-gray-900 p-0 h-[220px] overflow-hidden flex items-center justify-center">
+                        <img id="preview-rentaready" src="pic/VEHICLE RENTA/admin dashboard.PNG" class="w-full h-full object-cover object-top" alt="RentaReady Screenshot">
                     </div>
                 </div>
                 `;
-            } 
-            // 3. CRE4MY LATER (Windows POS Mockup)
-            else if (titleLower.includes("cre4my")) {
+            } else if (titleLower.includes("cre4my")) {
                 mockUpHTML = `
-                <div class="desktop-mockup relative">
-                    <div class="desktop-header select-none">
-                        <div class="flex items-center gap-1.5">
-                            <span class="browser-dot dot-red"></span><span class="browser-dot dot-yellow"></span><span class="browser-dot dot-green"></span>
+                <div class="border border-border dark:border-border-dark overflow-hidden bg-surface dark:bg-surface-dark">
+                    <div class="bg-primary dark:bg-gray-800 px-4 py-2 flex items-center justify-between">
+                        <div class="flex items-center gap-1.5 select-none">
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#eab308]"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#22c55e]"></span>
                         </div>
-                        <span class="desktop-title">CRE4MY LATER POS - Patisserie Client v2.1</span>
-                        <span class="text-[10px] text-slate-600 font-bold font-mono">✖</span>
+                        <span class="text-[10px] text-gray-400 font-mono">CRE4MY LATER</span>
                     </div>
-                    <!-- Mockup Tab Navigation -->
-                    <div class="bg-slate-950/60 light:bg-slate-100 px-4 py-2 border-b border-slate-200/5 light:border-slate-200 flex flex-wrap gap-1.5 select-none z-20 relative">
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-teal-600 text-white"
+                    <div class="bg-border-light dark:bg-gray-700 px-4 py-2 border-b border-border dark:border-border-dark flex flex-wrap gap-1.5 select-none">
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-primary dark:bg-gray-600 text-white"
                                 data-preview="pic/POS/dashboard1.png"
                                 data-project="cre4mylater">
                             POS Menu
                         </button>
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700/80"
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-border-light dark:bg-gray-700 text-text-secondary dark:text-gray-400"
                                 data-preview="pic/POS/cart.png"
                                 data-project="cre4mylater">
                             POS Cart
                         </button>
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700/80"
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-border-light dark:bg-gray-700 text-text-secondary dark:text-gray-400"
                                 data-preview="pic/POS/inventory.png"
                                 data-project="cre4mylater">
                             Inventory
                         </button>
                     </div>
-                    <!-- Screenshot Container -->
-                    <div class="desktop-body bg-[#170f1a] p-0 h-[220px] overflow-hidden flex items-center justify-center relative">
-                        <img id="preview-cre4mylater" src="pic/POS/dashboard1.png" class="w-full h-full object-cover object-top hover:scale-[1.03] transition-transform duration-500" alt="CRE4MY LATER POS Screenshot">
+                    <div class="bg-gray-100 dark:bg-gray-900 p-0 h-[220px] overflow-hidden flex items-center justify-center">
+                        <img id="preview-cre4mylater" src="pic/POS/dashboard1.png" class="w-full h-full object-cover object-top" alt="CRE4MY LATER POS Screenshot">
                     </div>
                 </div>
                 `;
-            }
-            // 4. TrustFactor 2FA (Web Browser Mockup)
-            else {
+            } else {
                 mockUpHTML = `
-                <div class="browser-mockup relative">
-                    <div class="browser-header">
-                        <div class="browser-dots select-none">
-                            <span class="browser-dot dot-red"></span><span class="browser-dot dot-yellow"></span><span class="browser-dot dot-green"></span>
+                <div class="border border-border dark:border-border-dark overflow-hidden bg-surface dark:bg-surface-dark">
+                    <div class="bg-primary dark:bg-gray-800 px-4 py-2 flex items-center justify-between">
+                        <div class="flex items-center gap-1.5 select-none">
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#eab308]"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#22c55e]"></span>
                         </div>
-                        <div class="browser-address-bar select-none">https://github.com/CJGR00/2FA</div>
+                        <span class="text-[10px] text-gray-400 font-mono">TrustFactor</span>
                     </div>
-                    <!-- Mockup Tab Navigation -->
-                    <div class="bg-slate-950/60 light:bg-slate-100 px-4 py-2 border-b border-slate-200/5 light:border-slate-200 flex flex-wrap gap-1.5 select-none z-20 relative">
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-teal-600 text-white"
+                    <div class="bg-border-light dark:bg-gray-700 px-4 py-2 border-b border-border dark:border-border-dark flex flex-wrap gap-1.5 select-none">
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-primary dark:bg-gray-600 text-white"
                                 data-preview="pic/2FA/sign in.PNG"
                                 data-project="trustfactor">
                             Sign In
                         </button>
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700/80"
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-border-light dark:bg-gray-700 text-text-secondary dark:text-gray-400"
                                 data-preview="pic/2FA/google app auth.PNG"
                                 data-project="trustfactor">
                             Google Auth
                         </button>
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700/80"
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-border-light dark:bg-gray-700 text-text-secondary dark:text-gray-400"
                                 data-preview="pic/2FA/email auth.PNG"
                                 data-project="trustfactor">
                             Email OTP
                         </button>
-                        <button class="project-tab-btn text-[9px] px-2 py-0.5 rounded font-bold font-mono transition-all active:scale-95 bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700/80"
+                        <button class="project-tab-btn text-[9px] px-2 py-0.5 font-bold font-mono bg-border-light dark:bg-gray-700 text-text-secondary dark:text-gray-400"
                                 data-preview="pic/2FA/admin dashboard.PNG"
                                 data-project="trustfactor">
                             Admin Panel
                         </button>
                     </div>
-                    <!-- Screenshot Container -->
-                    <div class="browser-content bg-[#0a0815] p-0 h-[220px] overflow-hidden flex items-center justify-center relative">
-                        <img id="preview-trustfactor" src="pic/2FA/sign in.PNG" class="w-full h-full object-cover object-top hover:scale-[1.03] transition-transform duration-500" alt="TrustFactor Screenshot">
+                    <div class="bg-gray-100 dark:bg-gray-900 p-0 h-[220px] overflow-hidden flex items-center justify-center">
+                        <img id="preview-trustfactor" src="pic/2FA/sign in.PNG" class="w-full h-full object-cover object-top" alt="TrustFactor Screenshot">
                     </div>
                 </div>
                 `;
             }
 
             return `
-            <article class="rounded-3xl border border-slate-200/5 light:border-slate-200 bg-slate-900/10 backdrop-blur-md overflow-hidden hover:shadow-2xl hover:shadow-teal-500/5 transition-all duration-500 hover:-translate-y-2 flex flex-col group relative">
-                <!-- Visual Top Gradient -->
-                <div class="h-1.5 w-full bg-gradient-to-r ${proj.gradient}"></div>
+            <article class="border border-border dark:border-border-dark bg-surface dark:bg-surface-dark overflow-hidden transition-all duration-300 flex flex-col group card-hover">
+                <div class="h-1 w-full bg-accent"></div>
                 
                 <div class="p-6 sm:p-8 flex flex-col flex-1">
                     
-                    <!-- SVG Emoji Custom Background -->
-                    <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${proj.iconBg} mb-6 shadow-xl relative select-none group-hover:scale-105 transition-transform duration-300">
-                        <span class="text-2xl z-10">${proj.emoji}</span>
-                        <div class="absolute inset-0 rounded-2xl bg-white/10 blur-[1px] group-hover:blur-[3px] transition-all"></div>
-                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-1.5 text-primary dark:text-white leading-tight">${proj.title}</h3>
+                    <p class="text-[10px] text-text-secondary dark:text-text-secondary-dark mb-4 font-bold tracking-widest uppercase">${proj.subtitle}</p>
                     
-                    <h3 class="text-2xl font-extrabold mb-1.5 group-hover:text-teal-400 transition-colors duration-200 font-jakarta leading-tight">${proj.title}</h3>
-                    <p class="text-[10px] text-slate-500 dark:text-slate-400 mb-4 font-extrabold tracking-wider uppercase leading-snug font-mono">${proj.subtitle}</p>
-                    
-                    <p class="text-sm text-slate-400 light:text-slate-600 leading-relaxed mb-6 font-jakarta">
+                    <p class="text-sm text-text-secondary dark:text-text-secondary-dark leading-relaxed mb-6">
                         ${proj.description}
                     </p>
                     
-                    <!-- Architecture Device Frame Mockup -->
-                    <div class="w-full mb-6 relative">
+                    <div class="w-full mb-6">
                         ${mockUpHTML}
                     </div>
                     
-                    <ul class="mb-6 space-y-2 font-jakarta">
+                    <ul class="mb-6 space-y-2">
                         ${bulletsHTML}
                     </ul>
                     
-                    <!-- Tag badge Deck -->
-                    <div class="flex flex-wrap gap-2 mb-6 select-none font-jakarta">
+                    <div class="flex flex-wrap gap-2 mb-6 select-none">
                         ${tagsHTML}
                     </div>
                     
-                    <!-- GitHub action button -->
-                    <a href="${proj.githubUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 justify-center px-5 py-3 rounded-2xl bg-slate-900 light:bg-slate-200 hover:bg-slate-800 light:hover:bg-slate-300 text-white light:text-slate-900 text-sm font-bold transition-all duration-200 hover:gap-3.5 group/btn font-jakarta">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                    <a href="${proj.githubUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 justify-center px-5 py-3 bg-primary dark:bg-white text-white dark:text-primary font-medium text-sm transition-colors duration-200 hover:bg-accent hover:text-white mt-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
                         View Code
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right opacity-60 group-hover/btn:opacity-100 transition-opacity"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right opacity-60"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
                     </a>
                 </div>
             </article>
@@ -1356,14 +1153,11 @@ export class PortfolioView {
         }).join('');
 
         return `
-        <section id="projects" class="py-28 px-4 opacity-0 translate-y-8 scroll-mt-20">
+        <section id="projects" class="py-24 px-6 scroll-mt-20" data-animate>
             <div class="max-w-5xl mx-auto">
                 <div class="text-left mb-12">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/5 border border-teal-500/15 text-teal-400 text-xs font-bold uppercase tracking-widest mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                        Featured Projects
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">Featured Projects</h2>
+                    <p class="text-xs font-bold text-accent uppercase tracking-widest mb-3">Projects</p>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold tracking-tight leading-tight text-primary dark:text-white">Featured Projects</h2>
                 </div>
                 
                 <div class="grid md:grid-cols-2 gap-8">
@@ -1375,56 +1169,47 @@ export class PortfolioView {
     }
 
     _createCertificationsHTML(certs) {
-        // Categories list
         const categories = ["All", "Cisco", "ISC2", "AWS", "Essentials"];
         const filterBtnsHTML = categories.map(cat => {
             const isAll = cat === "All";
             const btnClass = isAll 
-                ? "bg-teal-600 text-white shadow-lg shadow-teal-500/25" 
-                : "bg-slate-100 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 hover:text-white";
-            return `<button data-category="${cat}" class="certs-filter-btn px-4 py-2 text-xs font-bold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 ${btnClass}">${cat}</button>`;
+                ? "bg-primary dark:bg-accent text-white" 
+                : "bg-border-light dark:bg-border-light-dark text-text-secondary dark:text-text-secondary-dark";
+            return `<button data-category="${cat}" class="certs-filter-btn px-4 py-2 text-xs font-medium transition-colors duration-200 ${btnClass}">${cat}</button>`;
         }).join('');
 
         const certsHTML = certs.map(c => `
-        <div data-title="${c.title}" data-issuer="${c.issuer}" class="cert-card-wrapper flex flex-col justify-between rounded-2xl border border-slate-200/5 light:border-slate-200 bg-gradient-to-br ${c.gradient} bg-slate-900/10 backdrop-blur-sm p-6 hover:shadow-xl hover:border-teal-500/20 hover:-translate-y-1.5 transition-all duration-300 group">
-            <span class="text-3xl select-none group-hover:scale-115 transition-transform duration-300 mb-4 inline-block w-fit">${c.emoji}</span>
+        <div data-title="${c.title}" data-issuer="${c.issuer}" class="cert-card-wrapper flex flex-col justify-between border border-border dark:border-border-dark bg-surface dark:bg-surface-dark p-6 transition-all duration-300">
             <div>
-                <p class="font-extrabold text-sm text-slate-300 light:text-slate-700 leading-snug group-hover:text-teal-400 transition-colors duration-250">${c.title}</p>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 font-mono font-bold uppercase tracking-wider">${c.issuer}</p>
+                <p class="font-serif font-bold text-sm text-primary dark:text-white leading-snug">${c.title}</p>
+                <p class="text-xs text-text-secondary dark:text-text-secondary-dark mt-2 font-mono font-bold uppercase tracking-widest">${c.issuer}</p>
             </div>
         </div>
         `).join('');
 
         return `
-        <section id="certifications" class="py-28 px-4 opacity-0 translate-y-8 scroll-mt-20">
+        <section id="certifications" class="py-24 px-6 scroll-mt-20" data-animate>
             <div class="max-w-5xl mx-auto">
                 
-                <!-- Section Title & Filters/Search -->
                 <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
                     <div class="text-left">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/5 border border-teal-500/15 text-teal-400 text-xs font-bold uppercase tracking-widest mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
-                            Certifications
-                        </div>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">Accreditation Deck</h2>
+                        <p class="text-xs font-bold text-accent uppercase tracking-widest mb-3">Certifications</p>
+                        <h2 class="text-3xl sm:text-4xl font-serif font-bold tracking-tight leading-tight text-primary dark:text-white">Accreditation Deck</h2>
                     </div>
                     
-                    <!-- Certifications Tools Deck -->
                     <div class="flex flex-wrap items-center gap-4">
-                        <!-- Search Bar -->
-                        <div class="relative w-full sm:w-48 font-jakarta">
-                            <input type="text" id="certs-search" placeholder="Search certs..." class="w-full pl-8 pr-3.5 py-2 text-xs rounded-xl bg-slate-900/50 light:bg-white text-slate-300 light:text-slate-700 border border-slate-200/5 light:border-slate-200 focus-ring-glow transition-all" />
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <div class="relative w-full sm:w-48">
+                            <input type="text" id="certs-search" placeholder="Search certs..." class="w-full pl-8 pr-3.5 py-2 text-xs bg-bg dark:bg-bg-dark text-text dark:text-text-dark border border-border dark:border-border-dark focus:outline-none focus:border-accent transition-colors" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary dark:text-text-secondary-dark"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         </div>
                         
-                        <!-- Filter categories buttons -->
-                        <div class="flex flex-wrap gap-1.5 font-jakarta">
+                        <div class="flex flex-wrap gap-1.5">
                             ${filterBtnsHTML}
                         </div>
                     </div>
                 </div>
                 
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 font-jakarta">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     ${certsHTML}
                 </div>
             </div>
@@ -1434,100 +1219,93 @@ export class PortfolioView {
 
     _createContactHTML(profile) {
         return `
-        <section id="contact" class="py-28 px-4 opacity-0 translate-y-8 scroll-mt-20">
+        <section id="contact" class="py-24 px-6 scroll-mt-20" data-animate>
             <div class="max-w-5xl mx-auto">
                 <div class="text-center mb-12">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/5 border border-teal-500/15 text-teal-400 text-xs font-bold uppercase tracking-widest mb-3 mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.99 5.7a1.94 1.94 0 0 1-2.02 0L2 7"></path></svg>
-                        Get In Touch
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-center">Get In Touch</h2>
-                    <p class="text-slate-400 light:text-slate-600 mt-4 max-w-lg mx-auto font-jakarta">
+                    <p class="text-xs font-bold text-accent uppercase tracking-widest mb-3">Contact</p>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-primary dark:text-white">Get In Touch</h2>
+                    <p class="text-text-secondary dark:text-text-secondary-dark mt-4 max-w-lg mx-auto">
                         I'm currently seeking internship opportunities and entry-level software development roles. Select a template preset or drop your message below to connect!
                     </p>
                 </div>
                 
                 <div class="grid lg:grid-cols-12 gap-8 items-start">
                     
-                    <!-- Left: Presets Option Panel (UX PRO MAX SPEC) -->
                     <div class="lg:col-span-4 space-y-4">
-                        <p class="text-xs font-mono font-bold text-teal-400 uppercase tracking-widest pl-1 mb-2 select-none">Quick Template Presets</p>
+                        <p class="text-xs font-mono font-bold text-accent uppercase tracking-widest pl-1 mb-2 select-none">Quick Template Presets</p>
                         
-                        <div data-preset="internship" class="contact-preset-card rounded-2xl border border-slate-200/5 light:border-slate-200 bg-slate-900/10 backdrop-blur-sm p-4 hover:border-slate-200/15 hover:shadow-lg transition-all duration-300 cursor-pointer flex gap-3.5 group select-none">
-                            <span class="text-2xl mt-0.5 group-hover:scale-110 transition-transform">💼</span>
+                        <div data-preset="internship" class="contact-preset-card border border-border dark:border-border-dark bg-surface dark:bg-surface-dark p-4 transition-all duration-300 cursor-pointer flex gap-3.5 select-none">
+                            <span class="text-2xl mt-0.5">${'💼'}</span>
                             <div>
-                                <p class="font-bold text-slate-300 light:text-slate-700 text-sm">Internship Offer</p>
-                                <p class="text-[10px] text-slate-500 mt-1 font-jakarta leading-relaxed">BSCS student internship coordinator draft.</p>
+                                <p class="font-medium text-primary dark:text-white text-sm">Internship Offer</p>
+                                <p class="text-[10px] text-text-secondary dark:text-text-secondary-dark mt-1 leading-relaxed">BSCS student internship coordinator draft.</p>
                             </div>
                         </div>
 
-                        <div data-preset="collab" class="contact-preset-card rounded-2xl border border-slate-200/5 light:border-slate-200 bg-slate-900/10 backdrop-blur-sm p-4 hover:border-slate-200/15 hover:shadow-lg transition-all duration-300 cursor-pointer flex gap-3.5 group select-none">
-                            <span class="text-2xl mt-0.5 group-hover:scale-110 transition-transform">🤝</span>
+                        <div data-preset="collab" class="contact-preset-card border border-border dark:border-border-dark bg-surface dark:bg-surface-dark p-4 transition-all duration-300 cursor-pointer flex gap-3.5 select-none">
+                            <span class="text-2xl mt-0.5">${'🤝'}</span>
                             <div>
-                                <p class="font-bold text-slate-300 light:text-slate-700 text-sm">System Collaboration</p>
-                                <p class="text-[10px] text-slate-500 mt-1 font-jakarta leading-relaxed">Collaborate on a software/web system.</p>
+                                <p class="font-medium text-primary dark:text-white text-sm">System Collaboration</p>
+                                <p class="text-[10px] text-text-secondary dark:text-text-secondary-dark mt-1 leading-relaxed">Collaborate on a software/web system.</p>
                             </div>
                         </div>
 
-                        <div data-preset="hello" class="contact-preset-card rounded-2xl border border-slate-200/5 light:border-slate-200 bg-slate-900/10 backdrop-blur-sm p-4 hover:border-slate-200/15 hover:shadow-lg transition-all duration-300 cursor-pointer flex gap-3.5 group select-none">
-                            <span class="text-2xl mt-0.5 group-hover:scale-110 transition-transform">👋</span>
+                        <div data-preset="hello" class="contact-preset-card border border-border dark:border-border-dark bg-surface dark:bg-surface-dark p-4 transition-all duration-300 cursor-pointer flex gap-3.5 select-none">
+                            <span class="text-2xl mt-0.5">${'👋'}</span>
                             <div>
-                                <p class="font-bold text-slate-300 light:text-slate-700 text-sm">Say Hello!</p>
-                                <p class="text-[10px] text-slate-500 mt-1 font-jakarta leading-relaxed">General connection or nice comments.</p>
+                                <p class="font-medium text-primary dark:text-white text-sm">Say Hello!</p>
+                                <p class="text-[10px] text-text-secondary dark:text-text-secondary-dark mt-1 leading-relaxed">General connection or nice comments.</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Right: Gorgeous Contact Form Console -->
                     <div class="lg:col-span-8">
-                        <div class="rounded-3xl border border-slate-200/5 light:border-slate-200 bg-slate-900/10 backdrop-blur-sm p-6 sm:p-8 space-y-6">
+                        <div class="border border-border dark:border-border-dark bg-surface dark:bg-surface-dark p-6 sm:p-8 space-y-6">
                             
-                            <div class="grid sm:grid-cols-2 gap-4 font-jakarta">
+                            <div class="grid sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2 font-mono">From Name (Optional)</label>
-                                    <input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-xl bg-slate-900/50 light:bg-white text-slate-300 light:text-slate-700 border border-slate-200/5 light:border-slate-200 focus-ring-glow transition-all" />
+                                    <label class="block text-[10px] font-bold uppercase tracking-widest text-text-secondary dark:text-text-secondary-dark mb-2">From Name (Optional)</label>
+                                    <input type="text" placeholder="Your Name" class="w-full px-4 py-3 bg-bg dark:bg-bg-dark text-text dark:text-text-dark border border-border dark:border-border-dark focus:outline-none focus:border-accent transition-colors" />
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2 font-mono">Subject Theme</label>
-                                    <input type="text" id="contact-subject" placeholder="What are we building?" class="w-full px-4 py-3 rounded-xl bg-slate-900/50 light:bg-white text-slate-300 light:text-slate-700 border border-slate-200/5 light:border-slate-200 focus-ring-glow transition-all" />
+                                    <label class="block text-[10px] font-bold uppercase tracking-widest text-text-secondary dark:text-text-secondary-dark mb-2">Subject Theme</label>
+                                    <input type="text" id="contact-subject" placeholder="What are we building?" class="w-full px-4 py-3 bg-bg dark:bg-bg-dark text-text dark:text-text-dark border border-border dark:border-border-dark focus:outline-none focus:border-accent transition-colors" />
                                 </div>
                             </div>
                             
-                            <div class="font-jakarta">
-                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2 font-mono">Mail Transmission Content</label>
-                                <textarea id="contact-message" rows="5" placeholder="Dear Christian, let's discuss..." class="w-full px-4 py-3 rounded-xl bg-slate-900/50 light:bg-white text-slate-300 light:text-slate-700 border border-slate-200/5 light:border-slate-200 focus-ring-glow transition-all leading-relaxed"></textarea>
+                            <div>
+                                <label class="block text-[10px] font-bold uppercase tracking-widest text-text-secondary dark:text-text-secondary-dark mb-2">Mail Transmission Content</label>
+                                <textarea id="contact-message" rows="5" placeholder="Dear Christian, let's discuss..." class="w-full px-4 py-3 bg-bg dark:bg-bg-dark text-text dark:text-text-dark border border-border dark:border-border-dark focus:outline-none focus:border-accent transition-colors leading-relaxed"></textarea>
                             </div>
                             
-                            <!-- Mailto transmission launcher button -->
-                            <a id="contact-send-btn" href="mailto:${profile.email}" data-email="${profile.email}" class="inline-flex w-full items-center gap-2 justify-center px-6 py-4 rounded-2xl bg-teal-600 hover:bg-teal-500 text-white font-bold shadow-lg shadow-teal-500/25 transition-all duration-300 hover:scale-[1.01] active:scale-95 text-center font-jakarta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-navigation"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+                            <a id="contact-send-btn" href="mailto:${profile.email}" data-email="${profile.email}" class="inline-flex w-full items-center gap-2 justify-center px-6 py-4 bg-primary dark:bg-white text-white dark:text-primary font-medium transition-colors duration-200 hover:bg-accent hover:text-white text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-navigation"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
                                 Launch Mail Client
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Footer details of socials -->
-                <div class="flex flex-wrap justify-center gap-8 sm:gap-14 mt-16 font-jakarta select-none">
+                <div class="flex flex-wrap justify-center gap-8 sm:gap-14 mt-16 select-none">
                     <a href="${profile.socials.github}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="flex flex-col items-center gap-2 group">
-                        <div class="w-14 h-14 rounded-2xl border border-slate-200/5 light:border-slate-200 bg-slate-900/20 light:bg-white flex items-center justify-center text-slate-400 group-hover:border-teal-500 group-hover:text-teal-400 group-hover:shadow-xl group-hover:shadow-teal-500/10 transition-all duration-300 group-hover:scale-110">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                        <div class="w-14 h-14 border border-border dark:border-border-dark bg-surface dark:bg-surface-dark flex items-center justify-center text-text-secondary dark:text-text-secondary-dark group-hover:border-accent group-hover:text-accent transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
                         </div>
-                        <span class="text-xs font-bold text-slate-500 group-hover:text-teal-400 transition-colors">GitHub</span>
+                        <span class="text-xs font-medium text-text-secondary dark:text-text-secondary-dark group-hover:text-accent transition-colors">GitHub</span>
                     </a>
                     
                     <a href="${profile.socials.linkedin}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="flex flex-col items-center gap-2 group">
-                        <div class="w-14 h-14 rounded-2xl border border-slate-200/5 light:border-slate-200 bg-slate-900/20 light:bg-white flex items-center justify-center text-slate-400 group-hover:border-teal-500 group-hover:text-teal-400 group-hover:shadow-xl group-hover:shadow-teal-500/10 transition-all duration-300 group-hover:scale-110">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        <div class="w-14 h-14 border border-border dark:border-border-dark bg-surface dark:bg-surface-dark flex items-center justify-center text-text-secondary dark:text-text-secondary-dark group-hover:border-accent group-hover:text-accent transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                         </div>
-                        <span class="text-xs font-bold text-slate-500 group-hover:text-teal-400 transition-colors">LinkedIn</span>
+                        <span class="text-xs font-medium text-text-secondary dark:text-text-secondary-dark group-hover:text-accent transition-colors">LinkedIn</span>
                     </a>
                     
                     <a href="mailto:${profile.email}" aria-label="Email" class="flex flex-col items-center gap-2 group">
-                        <div class="w-14 h-14 rounded-2xl border border-slate-200/5 light:border-slate-200 bg-slate-900/20 light:bg-white flex items-center justify-center text-slate-400 group-hover:border-teal-500 group-hover:text-teal-400 group-hover:shadow-xl group-hover:shadow-teal-500/10 transition-all duration-300 group-hover:scale-110">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.99 5.7a1.94 1.94 0 0 1-2.02 0L2 7"></path></svg>
+                        <div class="w-14 h-14 border border-border dark:border-border-dark bg-surface dark:bg-surface-dark flex items-center justify-center text-text-secondary dark:text-text-secondary-dark group-hover:border-accent group-hover:text-accent transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.99 5.7a1.94 1.94 0 0 1-2.02 0L2 7"></path></svg>
                         </div>
-                        <span class="text-xs font-bold text-slate-500 group-hover:text-teal-400 transition-colors">Email</span>
+                        <span class="text-xs font-medium text-text-secondary dark:text-text-secondary-dark group-hover:text-accent transition-colors">Email</span>
                     </a>
                 </div>
 
@@ -1538,11 +1316,11 @@ export class PortfolioView {
 
     _createFooterHTML(profile) {
         return `
-        <footer class="border-t border-slate-200/5 light:border-slate-200 py-10 px-4 font-jakarta select-none">
-            <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <footer class="border-t border-border dark:border-border-dark py-10 px-6 select-none">
+            <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-secondary dark:text-text-secondary-dark">
                 <p>&copy; 2026 ${profile.fullName} &middot; Cavite State University</p>
                 <div class="flex items-center gap-1.5 font-mono">
-                    <span class="w-2 h-2 rounded-full bg-teal-500"></span>
+                    <span class="w-2 h-2 bg-accent"></span>
                     <p>Architecture: Pure JS MVC Module</p>
                 </div>
             </div>
@@ -1550,4 +1328,3 @@ export class PortfolioView {
         `;
     }
 }
-
