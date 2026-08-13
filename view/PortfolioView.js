@@ -313,7 +313,7 @@ export class PortfolioView {
                 }
             } else {
                 clearInterval(this.typingInterval);
-                this._rebuildMailtoLink(profile.email);
+                this._rebuildGmailLink(profile.email);
             }
         }, 12);
     }
@@ -722,7 +722,7 @@ export class PortfolioView {
                 const emailBtn = document.getElementById('contact-send-btn');
                 if (emailBtn) {
                     const recipient = emailBtn.getAttribute('data-email');
-                    this._rebuildMailtoLink(recipient);
+                    this._rebuildGmailLink(recipient);
                 }
             };
             subjectEl.addEventListener('input', formChangeHandler);
@@ -730,14 +730,14 @@ export class PortfolioView {
         }
     }
 
-    _rebuildMailtoLink(emailAddress) {
+    _rebuildGmailLink(emailAddress) {
         const subjectEl = document.getElementById('contact-subject');
         const messageEl = document.getElementById('contact-message');
         if (!subjectEl || !messageEl || !this.contactSendBtn) return;
         
         const subject = encodeURIComponent(subjectEl.value);
         const body = encodeURIComponent(messageEl.value);
-        this.contactSendBtn.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+        this.contactSendBtn.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(emailAddress)}&su=${subject}&body=${body}`;
     }
 
     _playSFX(type) {
@@ -1519,7 +1519,7 @@ export class PortfolioView {
                                 <textarea id="contact-message" rows="5" placeholder="Dear Christian, let's discuss..." class="w-full px-4 py-3 bg-bg text-text border border-border focus:outline-none focus:border-accent transition-colors leading-relaxed"></textarea>
                             </div>
                             
-                            <a id="contact-send-btn" href="mailto:${profile.email}" data-email="${profile.email}" class="inline-flex w-full items-center gap-2 justify-center px-6 py-4 bg-surface-light text-text font-medium transition-colors duration-200 hover:bg-accent hover:text-white text-center">
+                            <a id="contact-send-btn" href="${profile.socials.email}" data-email="${profile.email}" class="inline-flex w-full items-center gap-2 justify-center px-6 py-4 bg-surface-light text-text font-medium transition-colors duration-200 hover:bg-accent hover:text-white text-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-navigation"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
                                 Launch Mail Client
                             </a>
@@ -1542,7 +1542,7 @@ export class PortfolioView {
                         <span class="text-xs font-medium text-text-secondary group-hover:text-accent transition-colors">LinkedIn</span>
                     </a>
                     
-                    <a href="mailto:${profile.email}" aria-label="Email" class="flex flex-col items-center gap-2 group">
+                    <a href="${profile.socials.email}" target="_blank" rel="noopener noreferrer" aria-label="Email" class="flex flex-col items-center gap-2 group">
                         <div class="w-14 h-14 border border-border bg-surface flex items-center justify-center text-text-secondary group-hover:border-accent group-hover:text-accent transition-all duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.99 5.7a1.94 1.94 0 0 1-2.02 0L2 7"></path></svg>
                         </div>
