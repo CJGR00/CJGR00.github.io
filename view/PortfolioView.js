@@ -437,22 +437,24 @@ export class PortfolioView {
     }
 
     bindScrollSectionActive(handler) {
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: "-12% 0px -48% 0px"
+        const sections = [...document.querySelectorAll('section[id]')];
+        let activeSection = '';
+
+        const updateActiveSection = () => {
+            const viewportTarget = window.scrollY + (window.innerHeight * 0.35);
+            const currentSection = sections.reduce((current, section) => (
+                section.offsetTop <= viewportTarget ? section : current
+            ), sections[0]);
+
+            if (currentSection && currentSection.id !== activeSection) {
+                activeSection = currentSection.id;
+                handler(activeSection);
+            }
         };
 
-        const activeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    handler(entry.target.id);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            activeObserver.observe(section);
-        });
+        window.addEventListener('scroll', updateActiveSection, { passive: true });
+        window.addEventListener('resize', updateActiveSection);
+        updateActiveSection();
     }
 
     // --- DOM PRESENTATION-LAYER DETAILS ---
