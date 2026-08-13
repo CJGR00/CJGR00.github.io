@@ -1,6 +1,7 @@
 {
   "name": "cjgr-portfolio",
   "version": "1.0.0",
+  "type": "module",
   "description": "Personal Portfolio of Christian Jae Galang Remulla refactored to MVC",
   "main": "app.js",
   "scripts": {
@@ -9,6 +10,9 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "autoprefixer": "^10.5.4",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^3.4.19",
     "vite": "^5.0.0"
   }
 }

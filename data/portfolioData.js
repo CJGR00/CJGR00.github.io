@@ -17,7 +17,7 @@ export const portfolioData = {
         socials: {
             github: "https://github.com/CJGR00",
             linkedin: "https://www.linkedin.com/in/cjgr00/",
-            email: "mailto:christianremulla.01@gmail.com"
+            email: "https://mail.google.com/mail/?view=cm&fs=1&to=christianremulla.01@gmail.com&su=Portfolio%20Inquiry&body=Hi%20Christian%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect%20regarding%20%5BINSERT%20REASON%5D.%0A%0ABest%20regards%2C%0A%5BYOUR%20NAME%5D"
         },
         stats: [
             { value: "4+", label: "Projects Built" },
