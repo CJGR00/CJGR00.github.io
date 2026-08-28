@@ -117,16 +117,6 @@ html {
     animation: staggerReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Clip-Path Section Reveal */
-.clip-reveal {
-    clip-path: inset(0 0 100% 0);
-    transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.clip-reveal.visible {
-    clip-path: inset(0 0 0% 0);
-}
-
 /* 3D Card Tilt */
 .tilt-card {
     transform-style: preserve-3d;
@@ -397,11 +387,9 @@ a:hover {
     .hero-animate,
     .char,
     .text-reveal-inner,
-    .stagger-item,
-    .clip-reveal {
+    .stagger-item {
         opacity: 1;
         transform: none;
-        clip-path: none;
         animation: none;
         transition: none;
     }
